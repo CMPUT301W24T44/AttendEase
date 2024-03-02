@@ -97,7 +97,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/imageButtonConfirm"
+            android:id="@+id/imageButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="5dp"
