@@ -3226,6 +3226,7 @@ id animateToStart
 id antiClockwise
 id anticipate
 id arc
+id artImage
 id asConfigured
 id async
 id auto
@@ -3327,6 +3328,11 @@ id endToStart
 id end_padder
 id enterAlways
 id enterAlwaysCollapsed
+<<<<<<< Updated upstream
+=======
+id eventlist
+id eventspinner
+>>>>>>> Stashed changes
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3368,6 +3374,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageButtonBack
 id imageButtonConfirm
 id imageView
 id imageViewQRCode
@@ -3508,6 +3515,11 @@ id postLayout
 id pressed
 id progress_circular
 id progress_horizontal
+<<<<<<< Updated upstream
+=======
+id qrTypeGroup
+id qr_menu
+>>>>>>> Stashed changes
 id radio
 id radioButtonAttendee
 id radioButtonPromo

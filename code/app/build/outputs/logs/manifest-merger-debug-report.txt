@@ -1,15 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-31:12
-INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-31:12
+ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-39:12
+INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-39:12
+INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-39:12
+INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:2:1-39:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\denis\.gradle\caches\transforms-3\cc2d12b829148758ed6b3b42347dadc2\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\denis\.gradle\caches\transforms-3\241afb17a3857d8fe4aec61405a90878\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\denis\.gradle\caches\transforms-3\d50aae0f7ba54d4cd8c9f5975edf17d6\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\denis\.gradle\caches\transforms-3\8166a589a35a035bd9dd7b19086e549d\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\denis\.gradle\caches\transforms-3\e4fcf0d7f61a62c6f0e26a8eb7b4acc9\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:2:1-26:12
 MERGED from [com.journeyapps:zxing-android-embedded:4.2.0] C:\Users\denis\.gradle\caches\transforms-3\47c3ef0a24821c1b69d632ae6486a9ca\transformed\zxing-android-embedded-4.2.0\AndroidManifest.xml:17:1-56:12
+MERGED from [androidx.multidex:multidex:2.0.1] C:\Users\denis\.gradle\caches\transforms-3\62abf93f7f88c46e13a9fc6c80b7a3f2\transformed\multidex-2.0.1\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\denis\.gradle\caches\transforms-3\1a97313c4902439cdfd89758ad949ffd\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\denis\.gradle\caches\transforms-3\15c9a771b3bda95933033a8212cfdf9a\transformed\firebase-common-20.4.2\AndroidManifest.xml:15:1-41:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\denis\.gradle\caches\transforms-3\235bd59a478c6d5b2e159f30698c2b0d\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
@@ -89,8 +90,8 @@ MERGED from [com.journeyapps:zxing-android-embedded:4.2.0] C:\Users\denis\.gradl
 	android:name
 		ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:8:22-62
 application
-ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:10:5-29:19
-INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:10:5-29:19
+ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:10:5-37:19
+INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:10:5-37:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\denis\.gradle\caches\transforms-3\cc2d12b829148758ed6b3b42347dadc2\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\denis\.gradle\caches\transforms-3\cc2d12b829148758ed6b3b42347dadc2\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\denis\.gradle\caches\transforms-3\241afb17a3857d8fe4aec61405a90878\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -163,6 +164,16 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:26:17-77
 	android:name
 		ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:26:27-74
+activity#com.example.qreate.QRGeneratorActivity
+ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:30:9-33:20
+	android:exported
+		ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:31:13-36
+	android:name
+		ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:30:19-54
+activity#com.example.qreate.QRMenuScreenActivity
+ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:34:9-36:20
+	android:name
+		ADDED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml:34:19-55
 uses-sdk
 INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\denis\Documents\School\Cmput 301\Qreate\QReate\code\app\src\main\AndroidManifest.xml
@@ -179,6 +190,8 @@ MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\denis\.gra
 MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\denis\.gradle\caches\transforms-3\e4fcf0d7f61a62c6f0e26a8eb7b4acc9\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:6:5-44
 MERGED from [com.journeyapps:zxing-android-embedded:4.2.0] C:\Users\denis\.gradle\caches\transforms-3\47c3ef0a24821c1b69d632ae6486a9ca\transformed\zxing-android-embedded-4.2.0\AndroidManifest.xml:20:5-44
 MERGED from [com.journeyapps:zxing-android-embedded:4.2.0] C:\Users\denis\.gradle\caches\transforms-3\47c3ef0a24821c1b69d632ae6486a9ca\transformed\zxing-android-embedded-4.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.multidex:multidex:2.0.1] C:\Users\denis\.gradle\caches\transforms-3\62abf93f7f88c46e13a9fc6c80b7a3f2\transformed\multidex-2.0.1\AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.1] C:\Users\denis\.gradle\caches\transforms-3\62abf93f7f88c46e13a9fc6c80b7a3f2\transformed\multidex-2.0.1\AndroidManifest.xml:20:5-43
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\denis\.gradle\caches\transforms-3\1a97313c4902439cdfd89758ad949ffd\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\denis\.gradle\caches\transforms-3\1a97313c4902439cdfd89758ad949ffd\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\denis\.gradle\caches\transforms-3\15c9a771b3bda95933033a8212cfdf9a\transformed\firebase-common-20.4.2\AndroidManifest.xml:19:5-44

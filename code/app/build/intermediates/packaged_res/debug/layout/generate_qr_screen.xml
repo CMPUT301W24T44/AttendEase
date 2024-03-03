@@ -5,7 +5,7 @@
     android:background="#0A191E">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/artImage"
         android:layout_width="300dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
@@ -14,10 +14,20 @@
 
     <RelativeLayout
         android:layout_width="300dp"
+<<<<<<< Updated upstream
         android:layout_height="450dp"
         android:layout_below="@id/spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+=======
+        android:layout_height="match_parent"
+        android:layout_below="@id/eventspinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+>>>>>>> Stashed changes
         android:background="@drawable/rounded_dark_blue"
         android:radius="20dp">
 
@@ -36,6 +46,7 @@
             android:layout_height="250dp"
             android:layout_below="@id/textViewQRCodeLabel"
             android:layout_centerHorizontal="true"
+<<<<<<< Updated upstream
             android:layout_marginTop="15dp"
             android:src="@drawable/qrimage" />
 
@@ -64,6 +75,48 @@
             android:layout_below="@id/radioButtonPromo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
+=======
+            android:layout_marginTop="10dp"
+            android:src="@drawable/qrimage" />
+        <RadioGroup
+            android:id="@+id/qrTypeGroup"
+            android:layout_below="@id/imageViewQRCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/radioButtonAttendee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Attendee QR Code"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/radioButtonPromo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioButtonAttendee"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Promo QR Code"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonConfirm"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/qrTypeGroup"
+>>>>>>> Stashed changes
             android:background="@drawable/rounded_blue_buttons"
             android:text="Confirm"
             android:textColor="#FFFFFF"
@@ -72,10 +125,10 @@
     </RelativeLayout>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/eventspinner"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/imageView"
+        android:layout_below="@id/artImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_dark_blue" />
@@ -97,10 +150,16 @@
             android:textStyle="bold" />
 
         <ImageButton
+<<<<<<< Updated upstream
             android:id="@+id/imageButtonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:scaleType="fitCenter"
+=======
+            android:id="@+id/imageButtonBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+>>>>>>> Stashed changes
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"

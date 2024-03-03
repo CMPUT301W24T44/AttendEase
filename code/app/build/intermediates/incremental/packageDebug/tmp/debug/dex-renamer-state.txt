@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 #Fri Mar 01 20:30:39 MST 2024
+=======
+#Sat Mar 02 21:02:02 MST 2024
+>>>>>>> Stashed changes
 base.0=C\:\\Users\\denis\\Documents\\School\\Cmput 301\\Qreate\\QReate\\code\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\denis\\Documents\\School\\Cmput 301\\Qreate\\QReate\\code\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\denis\\Documents\\School\\Cmput 301\\Qreate\\QReate\\code\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
