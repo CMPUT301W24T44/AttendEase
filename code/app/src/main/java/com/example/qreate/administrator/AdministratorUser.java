@@ -1,4 +1,6 @@
 package com.example.qreate.administrator;
 
-public class AdministratorUser {
+import com.example.qreate.UserInterface;
+
+public class AdministratorUser implements UserInterface {
 }

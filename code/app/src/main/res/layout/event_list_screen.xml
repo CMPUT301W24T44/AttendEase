@@ -48,22 +48,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_list_screen_eventlist"
-        android:layout_below="@id/event_list_screen_image"
-        android:layout_centerHorizontal="true"
         android:layout_width="300dp"
-        android:layout_height="430dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/event_list_screen_image"
+        android:layout_above="@id/event_list_screen_confirmbutton"
+        android:layout_centerHorizontal="true" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/event_list_screen_confirmbutton"
         android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/event_list_screen_eventlist"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_blue_buttons"
         android:text="Create New Event"
         android:textAllCaps="false"

@@ -1,4 +1,6 @@
 package com.example.qreate.attendee;
 
-public class AttendeeUser {
+import com.example.qreate.UserInterface;
+
+public class AttendeeUser implements UserInterface {
 }

@@ -1,4 +1,6 @@
 package com.example.qreate.organizer;
 
-public class OrgnazierUser {
+import com.example.qreate.UserInterface;
+
+public class OrgnazierUser implements UserInterface {
 }

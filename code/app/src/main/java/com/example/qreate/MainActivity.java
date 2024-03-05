@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         //***************** IMPORTANT!!!!! ***********************************************************************
         // Each interface will have its own Activity class that will handle everything
-        // This is so that we don't unnecessarily populate the main activity create merge conflicts
+        // This is so that we don't unnecessarily populate the main activity and create merge conflicts
+        // A package directory has been created for each UI
         // Do Whatever you want to do with the other classes but DON'T TOUCH MainActivity for the time being
         // You may change the .setOnClickListener stuff in regards to the UI that you are implementing
         //*********************************************************************************************************

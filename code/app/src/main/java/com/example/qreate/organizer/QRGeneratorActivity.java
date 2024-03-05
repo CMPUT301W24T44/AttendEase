@@ -25,6 +25,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.generate_qr_code_screen);
+
         ImageButton backButton = findViewById(R.id.generate_qr_code_screen_backbutton);
         Button createCodesButton = findViewById(R.id.generate_qr_code_confirmbutton);
         RadioGroup radioGroup = findViewById(R.id.generate_qr_code_radio_group);
@@ -32,14 +33,27 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
         //NEED TO GRAB THE ARRAY FROM FIREBASE THEN PARSE IT INTO THIS
         Spinner eventsSpinner = findViewById(R.id.generate_qr_code_spinner);
+
+
+
+
+
+
+
+
+        ///////THIS PART IS CAUSING THE FRAGMENT TO NOT OPEN///////////////////////////////////////////
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, Integer.parseInt("make this the event array"), android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         eventsSpinner.setAdapter(adapter);
+        /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
         ImageView qrCodeSolo = findViewById(R.id.generate_qr_code_qr_image);
-
 
         createCodesButton.setOnClickListener(new View.OnClickListener() {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
@@ -63,8 +77,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
         backButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QRGeneratorActivity.this, OrganizerActivity.class);
-                startActivity(intent);
+                finish();
             }
         }));
 

@@ -19,26 +19,19 @@ public class OrganizerActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.organizer_handler_navigation_bar);
         bottomNavigationView.setSelectedItemId(R.id.defaultNavPlaceholder); //This line is here so that there is no default item selected, it selects a menu item that is invisible
 
-
-
-
-
-        EditProfileScreenFragment editProfileScreenFragment = new EditProfileScreenFragment();
+        //inflates the homescreen fragment automatically
+        HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.organizer_handler_frame,editProfileScreenFragment).commit();
+                .add(R.id.organizer_handler_frame,homeScreenFragment).commit();
 
 
-
-
-
-
-
-//        //inflates the homescreen fragment automatically
-//        HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
+//        //Testing purpose
+//        EditProfileScreenFragment editProfileScreenFragment = new EditProfileScreenFragment();
 //        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.organizer_handler_frame,homeScreenFragment).commit();
+//                .add(R.id.organizer_handler_frame,editProfileScreenFragment).commit();
 
-        //Used if/else to check for selected id because switch is being a bitch
+
+        //Used if/else to check for selected id because switch was being a bitch
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,28 +57,6 @@ public class OrganizerActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        bottomNavigationView.setSelectedItemId(R.id.defaultNavPlaceholder);
-//        //bottomNavigationView.setVisibility(View.INVISIBLE);
-//
-//
-//        //I AM STILL TESTING OUT HOW THIS WORKS
-//        HomeScreenFragment homeScreenFragment = new HomeScreenFragment();
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.organizer_handler_frame,homeScreenFragment).commit();
     }
 
 

@@ -26,10 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".organizer.QRGeneratorActivity">
-        </activity>
-        <activity android:name=".organizer.OrganizerActivity">
-        </activity>
+
+        <activity android:name=".organizer.OrganizerActivity"/>
+
+        <activity android:name=".organizer.QRGeneratorActivity"/>
+        <activity android:name=".organizer.QRReuseExistingActivity"/>
+        <activity android:name=".organizer.QREventListActivity"/>
+        <activity android:name=".organizer.QRShareActivity"/>
+
+        <activity android:name=".organizer.NotificationsSendActivity"/>
+
+
 
         <meta-data
             android:name="preloaded_fonts"

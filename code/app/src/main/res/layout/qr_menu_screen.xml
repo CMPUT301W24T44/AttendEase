@@ -50,7 +50,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/qr_menu_screen_generate_qr_code"
+        android:id="@+id/qr_menu_screen_button_generate_qr_code"
         android:layout_width="300dp"
         android:layout_height="90dp"
         android:layout_below="@id/qr_menu_screen_image"
@@ -66,7 +66,7 @@
         android:id="@+id/qr_menu_screen_button_reuse_qr_code"
         android:layout_width="300dp"
         android:layout_height="90dp"
-        android:layout_below="@id/qr_menu_screen_generate_qr_code"
+        android:layout_below="@id/qr_menu_screen_button_generate_qr_code"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_dark_blue"
