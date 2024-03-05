@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">QReate</string>
+    <string name="set_default_profile">Set Default Profile</string>
+    <string name="delete_picture">Delete Profile Picture</string>
+    <string name="choose_from_library">Choose from library</string>
+    <string name="options">options</string>
+    <string name="save_changes">Save Changes</string>
 </resources>
