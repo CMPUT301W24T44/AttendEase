@@ -8,4 +8,5 @@
     <string name="qreate_actionbar">Qreate</string>
     <string name="notifications_actionbar">Notifications</string>
     <string name="update_profile_button_text">Update Profile +</string>
+    <string name="logout_button">Logout</string>
 </resources>

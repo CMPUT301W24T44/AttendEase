@@ -7,6 +7,9 @@
     android:background="#0A191E"
     android:orientation="vertical">
 
+    <!-- User Display Details -->
+
+    <!-- WELCOME User-name -->
     <TextView
         android:id="@+id/home_screen_qreate_title"
         android:layout_width="wrap_content"
@@ -19,6 +22,7 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <!-- USER Profile_picture -->
     <ImageView
         android:id="@+id/home_screen_empty_profile_pic"
         android:layout_width="wrap_content"
@@ -39,6 +43,7 @@
         android:textColor="@color/white"
         android:textSize="27sp" />
 
+    <!-- USER-Phone No -->
     <TextView
         android:id="@+id/home_screen_phone_number_text"
         android:layout_width="wrap_content"
@@ -50,6 +55,7 @@
         android:textColor="@color/white"
         android:text="Phone Number" />
 
+    <!-- USER Email - -->
     <TextView
         android:id="@+id/home_screen_email_text"
         android:layout_width="wrap_content"
@@ -60,27 +66,31 @@
         android:fontFamily="@font/inter_light"
         android:textColor="@color/white"
         android:text="example@yahoo.com" />
+
     <Button
+        android:id="@+id/update_profile_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue_button"
         android:text="@string/update_profile_button_text"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="46dp">
     </Button>
 
     <Button
+        android:id="@+id/logout_button_attendee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#CD2020"
-        android:text="Logout"
+        android:text="@string/logout_button"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp">
 
     </Button>
 
+    <!-- Navigation Bar Code -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,14 +98,14 @@
         android:background="@drawable/bottom_menu_background"
         android:gravity="center"
         android:weightSum="3"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp">
 
 
-    <!-- Button 1: Notifications -->
+        <!-- Button 1: Notifications -->
         <LinearLayout
-            android:id="@+id/layout_notifications"
+            android:id="@+id/notfication_nav_button_attendee"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -108,11 +118,11 @@
 
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/notification_attendee_icon"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="1dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,10 +134,8 @@
         </LinearLayout>
 
         <!-- Button 2: Scan -->
-
-        <!-- Button 3: Account -->
         <LinearLayout
-            android:id="@+id/layout_scan"
+            android:id="@+id/scan_nav_button_attendee"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -135,14 +143,13 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="7dp"
                 android:src="@drawable/scan_qr_icon" />
 
             <TextView
@@ -154,8 +161,9 @@
 
         </LinearLayout>
 
+        <!-- Button 3: Account -->
         <LinearLayout
-            android:id="@+id/layout_account"
+            android:id="@+id/account_nav_button_attendee"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -163,15 +171,14 @@
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/nav_colourchangbutton_selector"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/attendee_profile_icon"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="7dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
