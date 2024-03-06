@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard_icon"
+        android:icon="@drawable/dashboardicon"
+        android:title="Dashboard"/>
+    <item
+        android:id="@+id/account_icon"
+        android:icon="@drawable/account_icon"
+        android:title="Account"/>
+    <item
+        android:id="@+id/defaultNavPlaceholder"
+        android:icon="@drawable/mapicon"
+        android:title="Default"
+        android:visible="false"/>
+</menu>

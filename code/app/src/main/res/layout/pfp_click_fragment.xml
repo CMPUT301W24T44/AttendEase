@@ -56,7 +56,7 @@
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@id/logout_icon"
             android:background="@android:color/transparent"
-            android:text="Settings"
+            android:text="Logout"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
