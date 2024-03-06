@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:fontFamily="cursive"
-            android:text="Qreate"
+            android:text="@string/qreate_actionbar"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
             android:textStyle="bold" />

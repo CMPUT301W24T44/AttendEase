@@ -5,4 +5,7 @@
     <string name="choose_from_library">Choose from library</string>
     <string name="options">options</string>
     <string name="save_changes">Save Changes</string>
+    <string name="qreate_actionbar">Qreate</string>
+    <string name="notifications_actionbar">Notifications</string>
+    <string name="update_profile_button_text">Update Profile +</string>
 </resources>

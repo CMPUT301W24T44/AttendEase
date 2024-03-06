@@ -73,7 +73,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/rounded_blue_buttons"
         android:text="Update Personal Details+"
         android:textAllCaps="false"
