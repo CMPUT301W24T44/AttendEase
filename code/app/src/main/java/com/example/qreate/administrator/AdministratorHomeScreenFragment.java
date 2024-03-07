@@ -1,4 +1,4 @@
-package com.example.qreate.organizer;
+package com.example.qreate.administrator;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qreate.R;
 
-public class WelcomeScreenFragment extends Fragment {
+public class AdministratorHomeScreenFragment extends Fragment {
+    /*
+    This class is for the homescreen after user clicks on administrator
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

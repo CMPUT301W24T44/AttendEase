@@ -1,219 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
-    android:foregroundTint="#FF9800">
+    android:background="@color/dark_blue">
 
     <TextView
-        android:id="@+id/edit_profile_title"
+        android:id="@+id/edit_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
         android:text="Edit Profile"
         android:textColor="@color/white_grey"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/empty_profile_pic"
-        android:layout_width="206dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="488dp"
-        android:contentDescription="empty default profile pic"
-        android:src="@drawable/empty_profile_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_title"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="92dp"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="add button for adding a profile pic"
-        android:src="@drawable/plus_button"
-        app:layout_constraintBottom_toTopOf="@+id/edit_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.696"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_title"
-        app:layout_constraintVertical_bias="0.0"
-        app:tint="@color/white" />
-
-    <EditText
-        android:id="@+id/edit_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/edit_text_bubble"
-        android:hint="Enter name here"
-        android:paddingStart="12dp"
-        android:textColor="@color/dark_grey"
-        android:textColorHint="@color/dark_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.581"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empty_profile_pic" />
-
-    <EditText
-        android:id="@+id/edit_homepage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/edit_text_bubble"
-        android:hint="Website (http://example.com)"
-        android:paddingStart="12dp"
-        android:textColor="@color/dark_grey"
-        android:textColorHint="@color/dark_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_phone_number" />
-
-
-    <EditText
-        android:id="@+id/edit_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/edit_text_bubble"
-        android:hint="Email (e.g., example@gmail.com)"
-        android:paddingStart="12dp"
-        android:textColor="@color/dark_grey"
-        android:textColorHint="@color/dark_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_number" />
-
-    <TextView
-        android:id="@+id/homepage_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/abhaya_libre_extrabold"
-        android:text="HomePage"
-        android:textColor="@color/white"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_homepage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_phone_number"
-        app:layout_constraintVertical_bias="0.523" />
-
-    <TextView
-        android:id="@+id/contact_info_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/abhaya_libre_extrabold"
-        android:text="Contact Information"
-        android:textColor="@color/white"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_name"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/edit_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/edit_text_bubble"
-        android:hint="Mobile Number (e.g., 123-456-7890)"
-        android:paddingStart="12dp"
-        android:textColor="@color/dark_grey"
-        android:textColorHint="@color/dark_grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_name"
-        app:layout_constraintVertical_bias="0.013" />
+        android:layout_width="172dp"
+        android:layout_height="115dp"
+        android:layout_below="@+id/edit_profile_text"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="empty profile pic"
+        android:src="@drawable/empty_profile_pic" />
 
     <TextView
         android:id="@+id/edit_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@+id/add_photo_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-262dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/empty_profile_pic"
         android:fontFamily="@font/abhaya_libre_extrabold"
         android:text="Name"
         android:textColor="@color/white"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empty_profile_pic"
-        app:layout_constraintVertical_bias="0.25" />
+        android:textSize="27sp" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="354dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/edit_name_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:autofillHints="name"
+        android:background="@drawable/edit_text_bubble"
+        android:fontFamily="@font/inter_semibold"
+        android:hint="Enter Name (ex. John Smith)"
+        android:inputType="textPersonName"
+        android:maxLength="30"
+        android:padding="12dp"
+        android:textColor="@color/dark_grey"
+        android:textColorHint="@color/light_grey"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/contact_info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_name"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/abhaya_libre_extrabold"
+        android:text="Contact Information"
+        android:textColor="@color/white"
+        android:textSize="27sp" />
+
+
+    <EditText
+        android:id="@+id/edit_number"
+        android:layout_width="354dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/contact_info_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="220dp"
+        android:autofillHints="phone"
+        android:background="@drawable/edit_text_bubble"
+        android:fontFamily="@font/inter_semibold"
+        android:hint="Phone Number (123-456-7890)"
+        android:inputType="phone"
+        android:maxLength="15"
+        android:padding="12dp"
+        android:textColorHint="@color/light_grey"
+        android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/add_photo_button"
+        android:layout_width="90dp"
+        android:layout_height="83dp"
+        android:layout_below="@+id/edit_profile_text"
+        android:layout_alignStart="@+id/empty_profile_pic"
+        android:layout_alignEnd="@+id/empty_profile_pic"
+        android:layout_alignBottom="@+id/empty_profile_pic"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="-20dp"
+        android:layout_marginBottom="-32dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="add button for adding a profile pic"
+        android:src="@drawable/plus_button"
+        tools:ignore="RedundantDescriptionCheck" />
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="354dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/contact_info_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:autofillHints="phone"
+        android:background="@drawable/edit_text_bubble"
+        android:fontFamily="@font/inter_semibold"
+        android:hint="Email (example@gmail.com)"
+        android:inputType="textEmailAddress"
+        android:maxLength="50"
+        android:padding="12dp"
+        android:textColor="@color/dark_grey"
+        android:textColorHint="@color/light_grey"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/homepage_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_info_text"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="115dp"
+        android:fontFamily="@font/abhaya_libre_extrabold"
+        android:text="Homepage"
+        android:textColor="@color/white"
+        android:textSize="27sp" />
+
+    <EditText
+        android:id="@+id/edit_homepage_website"
+        android:layout_width="354dp"
+        android:layout_height="44dp"
+        android:layout_below="@id/homepage_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:autofillHints="website"
+        android:background="@drawable/edit_text_bubble"
+        android:fontFamily="@font/inter_semibold"
+        android:hint="http://example.com"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="@color/dark_grey"
+        android:textColorHint="@color/light_grey"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/geolocation_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@+id/homepage_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="124dp"
+        android:layout_toEndOf="@+id/switchCompat"
         android:fontFamily="@font/abhaya_libre_extrabold"
         android:text="Geolocation"
         android:textColor="@color/white"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toTopOf="@+id/confirm_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/switchCompat"
-        app:layout_constraintTop_toBottomOf="@+id/edit_homepage"
-        app:layout_constraintVertical_bias="0.482" />
+        android:textSize="27sp" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchCompat"
         android:layout_width="58dp"
         android:layout_height="53dp"
+        android:layout_below="@+id/homepage_text"
+        android:layout_alignStart="@id/homepage_text"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="69dp"
         android:textColor="#FFC107"
-        app:layout_constraintBottom_toTopOf="@+id/confirm_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_homepage"
-        app:layout_constraintVertical_bias="0.577"
         app:thumbTint="@color/blue_button"
         app:trackTint="@color/yellow" />
 
     <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
+        android:id="@+id/edit_profile_confirm_button"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/homepage_text"
+        android:layout_alignStart="@+id/homepage_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-16dp"
+        android:layout_marginTop="139dp"
         android:backgroundTint="@color/blue_button"
-        android:fontFamily="@font/inter_semibold"
+        android:gravity="center"
         android:text="Confirm"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_homepage"
-        app:layout_constraintVertical_bias="0.873" />
+        android:textColor="@color/white" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.qreate.administrator;
+package com.example.qreate.attendee;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qreate.R;
 
-public class AdministratorHomeScreen extends Fragment {
+public class AttendeeHomePage extends Fragment {
+
     /*
     This class is for the homescreen after user clicks on administrator
      */
@@ -20,4 +21,5 @@ public class AdministratorHomeScreen extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home_screen, container, false);
     }
+
 }

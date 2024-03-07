@@ -1,15 +1,25 @@
 package com.example.qreate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.qreate.administrator.AdministratorActivity;
+import com.example.qreate.attendee.AttendeeActivity;
 import com.example.qreate.organizer.OrganizerActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
+import android.content.Context;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         attendeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -60,4 +72,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
+
+

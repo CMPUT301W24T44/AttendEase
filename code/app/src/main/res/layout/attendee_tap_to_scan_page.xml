@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/dark_blue">
+
+    <TextView
+        android:id="@+id/logo_text_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:fontFamily="cursive"
+        android:text="Qreate"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tap_to_scan_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo_text_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="122dp"
+        android:fontFamily="@font/abhaya_libre_extrabold"
+        android:text="Tap to Scan"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tap_to_scan_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="This app will require access to the camera"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/generate_qr_code_qr_image"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_below="@id/tap_to_scan_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/qrimage" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/attendee_handler_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/bottom_menu_background"
+        android:elevation="2dp"
+        app:itemIconSize="45dp"
+        app:itemIconTint="@color/bottom_menu_selector"
+        app:menu="@menu/attendee_bottom_menu" />
+
+
+
+</RelativeLayout>

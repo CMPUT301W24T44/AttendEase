@@ -35,54 +35,64 @@
         android:fontFamily="@font/poppins_bold"
         android:textSize="35sp"/>
 
+    <LinearLayout
+        android:id="@+id/administrator_top_bar"
+        android:layout_width="370dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/yellow_background_bubble"
+        android:elevation="2dp">
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/administrator_top_bar"
+        <Button
+            android:id="@+id/events"
+            android:layout_width="118dp"
+            android:layout_height="31dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/zxing_transparent"
+            android:padding="0dp"
+            android:state_selected="true"
+            android:text="Events"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/profiles"
+            android:layout_width="118dp"
+            android:layout_height="31dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/zxing_transparent"
+            android:padding="0dp"
+            android:state_selected="true"
+            android:text="Profiles"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/images"
+            android:layout_width="118dp"
+            android:layout_height="31dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/zxing_transparent"
+            android:padding="0dp"
+            android:text="Images"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/administrator_dashboard_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_dark_blue">
+        <ListView
             android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bottom_menu_background"
-            app:itemIconTint="@color/top_menu_selector"
-            app:menu="@menu/admin_dashboard_top_menu"
-            android:elevation="2dp" >
-
-            <TextView
-                android:id="@+id/events"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginTop="1dp"
-                android:text="@string/events"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/profiles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="145dp"
-                android:layout_marginTop="1dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="@string/profiles"
-                android:textSize="17sp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/images"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="260dp"
-                android:layout_marginTop="1dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="@string/images"
-                android:textSize="17sp"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.navigation.NavigationView>
-
-
+            android:layout_height="match_parent">
+        </ListView>
+    </FrameLayout>
 
 </RelativeLayout>

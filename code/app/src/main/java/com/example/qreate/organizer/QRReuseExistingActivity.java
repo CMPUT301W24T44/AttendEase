@@ -13,15 +13,15 @@ public class QRReuseExistingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reuse_exisiting_qr_code_screen);
+        setContentView(R.layout.organizer_reuse_exisiting_qr_code_screen);
 
-//        //Back Button
-//        ImageButton backButton = findViewById(R.id.reuse_existing_qr_code_screen_backbutton);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        //Back Button
+        ImageButton backButton = findViewById(R.id.reuse_existing_qr_code_screen_backbutton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
