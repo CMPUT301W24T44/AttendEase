@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 
 public class NotifArrayAdapter extends ArrayAdapter<Notif> {
-    private ArrayList<Notif> notifs;
-    private Context context;
+    private final ArrayList<Notif> notifs;
+    private final Context context;
 
     /**
      * Constructs a new NotifArrayAdapter.

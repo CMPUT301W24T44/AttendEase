@@ -55,7 +55,7 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
     This class is used as the MainActivity class for the Administrator UI
      */
 
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private BottomNavigationView bottomNavigationView;
     private String retrievedDocumentId;
 

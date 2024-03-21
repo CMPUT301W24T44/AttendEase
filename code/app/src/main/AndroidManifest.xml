@@ -32,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".organizer.OrganizerActivity"/>
         <activity android:name=".organizer.qrmenu.OrganizerQRGeneratorActivity"/>
         <activity android:name=".organizer.qrmenu.OrganizerQRReuseExistingActivity"/>
@@ -46,6 +45,7 @@
 
         <activity android:name=".attendee.AttendeeActivity"/>
         <activity android:name=".attendee.AttendeeQRScanner"/>
+        <activity android:name=".SetProfilePictureActivity" />
 
 
         <meta-data

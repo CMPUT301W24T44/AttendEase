@@ -4,8 +4,8 @@ package com.example.qreate.administrator;
  * This class defines an image (queried from the database) and is used to store it and its name.
  */
 public class AdministratorImage {
-    private String imageName;
-    private String image;
+    private final String imageName;
+    private final String image;
 
     /**
      * This is a constructor for the AdministratorImage class

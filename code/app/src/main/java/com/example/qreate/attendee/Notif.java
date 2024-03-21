@@ -12,8 +12,8 @@ package com.example.qreate.attendee;
  */
 
 public class Notif {
-    private String notification;
-    private String organizer;
+    private final String notification;
+    private final String organizer;
 
     /**
      * Constructs a new Notif object with specified notification message and organizer name.

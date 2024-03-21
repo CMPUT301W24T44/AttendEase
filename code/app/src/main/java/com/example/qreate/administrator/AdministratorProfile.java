@@ -4,8 +4,8 @@ package com.example.qreate.administrator;
  * This class defines a profile (queried from the database) and is used to store the profile name, image and other details(which will be implemented Part 4).
  */
 public class AdministratorProfile {
-    private String profileName;
-    private String profileImage;
+    private final String profileName;
+    private final String profileImage;
 
     /**
      *This is a constructor for the AdministratorProfile class

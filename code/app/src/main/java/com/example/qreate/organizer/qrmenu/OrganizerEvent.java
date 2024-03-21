@@ -9,10 +9,10 @@ import java.util.List;
  * @author Denis Soh
  */
 public class OrganizerEvent {
-    private String event;
-    private String detail;
+    private final String event;
+    private final String detail;
     private String organizer;
-    private String date;
+    private final String date;
     private String posterUrl;
     private String signInQrCodeUrl;
     private String promotionalQrCodeUrl;
