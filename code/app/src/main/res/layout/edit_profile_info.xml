@@ -18,8 +18,7 @@
         android:text="Edit Profile"
         android:textColor="@color/white_grey"
         android:textSize="34sp"
-        android:textStyle="bold"
-        android:focusable="true"/>
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/empty_profile_pic"
@@ -108,8 +107,8 @@
         android:backgroundTint="#00FFFFFF"
         android:contentDescription="add button for adding a profile pic"
         android:src="@drawable/plus_button"
-        android:clickable="true"
         tools:ignore="RedundantDescriptionCheck"
+        android:clickable="true"
         android:focusable="true" />
 
     <EditText
@@ -168,7 +167,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="81dp"
         android:layout_marginEnd="124dp"
-        android:layout_toEndOf="@+id/switchCompat"
+        android:layout_toEndOf="@+id/edit_profile_switchcompat"
         android:fontFamily="@font/abhaya_libre_extrabold"
         android:text="Geolocation"
         android:textColor="@color/white"
