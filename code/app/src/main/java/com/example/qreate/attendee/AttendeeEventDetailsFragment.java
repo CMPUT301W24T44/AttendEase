@@ -1,5 +1,6 @@
 package com.example.qreate.attendee;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -85,14 +86,18 @@ public class AttendeeEventDetailsFragment extends Fragment {
     }
 
     private void accountProfile() {
-        //Handles fragment transaction related to the account profile
+        // Ensuring the fragment is attached and the activity is correctly referenced
+        Activity activity = getActivity();
+        if (activity instanceof AttendeeActivity) {
+            ((AttendeeActivity) activity).hideBottomNavigationBar();
 
-        ((AttendeeActivity)getActivity()).hideBottomNavigationBar();
-
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.attendee_handler_frame, new AccountProfileScreenFragment("attendee"));
-        transaction.addToBackStack(null); // Add this transaction to the back stack
-        transaction.commit();
+            // Replace 'new AccountProfileScreenFragment("attendee")' with correct instance creation if needed
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.attendee_handler_frame, new AccountProfileScreenFragment("attendee"));
+            transaction.addToBackStack(null); // This ensures returning to the previous state on back press
+            transaction.commit();
+        }
     }
+
 }

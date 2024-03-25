@@ -95,36 +95,30 @@ public class EditProfileScreenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        //This one goes to the next screen, whereas` the class AccountProfileScreenFragment destroys itself and returns to previous fragment
-        // so two classes, same fragment layout but different behaviour
-        // on pressing confirm, validates user details and returns
-
         View view = inflater.inflate(R.layout.edit_profile_info, container, false);
 
-        // Existing code for confirmDataButton
         Button confirmDataButton = view.findViewById(R.id.edit_profile_confirm_button);
         confirmDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("confirm ", "confirm pressed");
+                Log.d("confirm", "confirm pressed");
                 authenticateUserInfo(view);
             }
         });
 
-        // Set up the OnClickListener for the add_photo_button
         ImageButton addPhotoButton = view.findViewById(R.id.add_photo_button);
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("ProfilePic", "Add photo button pressed");
-                Intent intent = new Intent(getActivity(), SetProfilePictureActivity.class);
+                Intent intent = new Intent(getActivity(), UpdateProfileScreenActivity.class);
                 startActivity(intent);
             }
         });
 
         return view;
     }
+
 
 
     private void authenticateUserInfo(View view) {

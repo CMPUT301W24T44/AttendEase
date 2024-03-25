@@ -1,5 +1,7 @@
 package com.example.qreate;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +71,16 @@ public class AccountProfileScreenFragment extends Fragment {
                 authenticateUserInfo(view);
                 FragmentManager fragmentManager = getParentFragmentManager(); // Use getSupportFragmentManager() in an Activity
                 fragmentManager.popBackStack();
+            }
+        });
+
+        ImageButton addPhotoButton = view.findViewById(R.id.add_photo_button);
+        addPhotoButton.setOnClickListener(v -> {
+            Log.d("ProfilePic", "Add photo button pressed");
+            Activity activity = getActivity();
+            if (activity != null) {
+                Intent intent = new Intent(activity, UpdateProfileScreenActivity.class);
+                startActivity(intent);
             }
         });
 
