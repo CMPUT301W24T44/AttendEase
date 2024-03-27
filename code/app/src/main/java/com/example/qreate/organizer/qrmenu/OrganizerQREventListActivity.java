@@ -66,7 +66,7 @@ public class OrganizerQREventListActivity extends AppCompatActivity implements O
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i],"date")));
+            events.add((new OrganizerEvent(cities[i], provinces[i],"date", "get id doesnt work here either")));
         }
     }
 

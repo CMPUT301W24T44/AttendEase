@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +20,27 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 
+import com.example.qreate.MainActivity;
 import com.example.qreate.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The following class is responsible for the create event popup
@@ -37,8 +50,18 @@ import java.util.Calendar;
  */
 public class OrganizerCreateEventFragment extends DialogFragment {
     private static final int REQUEST_IMAGE_PICKER = 1;
-    private ImageView imageView;
+    private ImageButton addPoster;
     private TextView dateText;
+    Uri selectedImageUri;
+    private StorageReference storageRef;
+
+    /*private final ActivityResultLauncher<Intent> imagePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            selectedImageUri = result.getData().getData();
+                        }
+                    });*/
 
     interface AddEventDialogListener {
         void addEvent(OrganizerEvent event);
@@ -83,8 +106,9 @@ public class OrganizerCreateEventFragment extends DialogFragment {
         addPoster.setOnClickListener(v -> {
             openImagePicker();
             posterName.setVisibility(View.VISIBLE);
-            addPoster.setVisibility(View.INVISIBLE);
+            //addPoster.setVisibility(View.INVISIBLE);
         });
+        storageRef = FirebaseStorage.getInstance().getReference();
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +123,8 @@ public class OrganizerCreateEventFragment extends DialogFragment {
         createButton.setOnClickListener(v -> {
             String eventName = addName.getText().toString();
             String eventDescription = addDescription.getText().toString();
-            listener.addEvent(new OrganizerEvent(eventName, eventDescription, dateText.getText().toString()));
-            uploadEventData(new OrganizerEvent(eventName, eventDescription,dateText.getText().toString()));
+            listener.addEvent(new OrganizerEvent(eventName, eventDescription, dateText.getText().toString(), Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID)));
+            uploadEventData(new OrganizerEvent(eventName, eventDescription,dateText.getText().toString(), Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID)));
             dialog.dismiss();
         });
         return dialog;
@@ -171,9 +195,10 @@ public class OrganizerCreateEventFragment extends DialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_PICKER && resultCode == RESULT_OK) {
             // Handle the selected image here
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             // Load the image into your ImageView or process it further
-            imageView.setImageURI(selectedImageUri);
+            //TODO THIS CRASHES CODE IDK WHY
+            //addPoster.setImageURI(selectedImageUri);
         }
     }
 
@@ -181,6 +206,39 @@ public class OrganizerCreateEventFragment extends DialogFragment {
 
         // TODO date, organizer, location, time, the qr code
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Events").document(event.getEvent()).set(event);
+        //db.collection("Events").document(event.getEvent()).set(event);
+        Map<String, Object> eventHash = new HashMap<>();
+        eventHash.put("organizer", event.getOrganizer());
+        eventHash.put("name", event.getEvent());
+        eventHash.put("description", event.getDetail());
+        eventHash.put("date", event.getDate());
+        eventHash.put("poster", "posters/" + event.getEvent() + "Poster.jpg");
+        uploadImage(event);
+
+        db.collection("Events").add(eventHash);
+    }
+//something here isn't working >:(
+    private void uploadImage(OrganizerEvent event) {
+        if (selectedImageUri != null) {
+            StorageReference fileRef = storageRef.child("posters/" + event.getEvent() + "Poster.jpg");
+            fileRef.putFile(selectedImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Image uploaded successfully
+                            Toast.makeText(requireContext(), "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Handle failure (e.g., show an error message)
+                            Toast.makeText(requireContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else {
+            Toast.makeText(requireContext(), "Image upload failed! no image", Toast.LENGTH_SHORT).show();
+        }
     }
 }

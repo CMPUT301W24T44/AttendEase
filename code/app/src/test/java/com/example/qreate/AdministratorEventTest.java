@@ -13,7 +13,8 @@ public class AdministratorEventTest {
         // Setting up a mock event
         String expectedEventName = "Tech Conference 2024";
         String eventOrganizer = "Tech Innovators";
-        AdministratorEvent event = new AdministratorEvent(expectedEventName, eventOrganizer);
+        String eventId = "123";
+        AdministratorEvent event = new AdministratorEvent(expectedEventName, eventOrganizer, eventId);
 
         // Invoking the getEventName() method
         String actualEventName = event.getEventName();
@@ -27,7 +28,8 @@ public class AdministratorEventTest {
         // Setting up a mock event
         String eventName = "Tech Conference 2024";
         String expectedEventOrganizer = "Tech Innovators";
-        AdministratorEvent event = new AdministratorEvent(eventName, expectedEventOrganizer);
+        String eventId = "123";
+        AdministratorEvent event = new AdministratorEvent(eventName, expectedEventOrganizer, eventId);
 
         // Invoking the getEventOrganizer() method
         String actualEventOrganizer = event.getEventOrganizer();

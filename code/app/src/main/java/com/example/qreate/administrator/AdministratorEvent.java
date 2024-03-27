@@ -4,17 +4,19 @@ package com.example.qreate.administrator;
  * This class defines an event (queried from the database) and is used to store its name and details.
  */
 public class AdministratorEvent {
-    private final String eventName;
-    private final String eventOrganizer;
+    private String eventName;
+    private String eventOrganizer;
+    private String id;
 
     /**
      * This is a constructor for the AdministratorEvent class
      * @param eventName the name of the event
      * @param eventOrganizer the name of the event organizer
      */
-    public AdministratorEvent(String eventName, String eventOrganizer) {
+    public AdministratorEvent(String eventName, String eventOrganizer, String id) {
         this.eventName = eventName;
         this.eventOrganizer = eventOrganizer;
+        this.id = id;
     }
 
     /**
@@ -31,5 +33,9 @@ public class AdministratorEvent {
      */
     public String getEventOrganizer() {
         return eventOrganizer;
+    }
+
+    public String getId() {
+        return id;
     }
 }

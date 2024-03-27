@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".attendee.AttendeeQRScanner"
+    tools:context=".attendee.DoNotRemoveForNowAttendeeQRScanner"
     android:orientation="vertical"
     android:background="@color/dark_blue"
     >
@@ -48,15 +48,6 @@
         android:background="@drawable/tapscanimg"
         />
 
-    <TextView
-        android:id="@+id/message_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="Details of QR code:"
-        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/text_content"

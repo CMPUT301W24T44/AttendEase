@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cancel_icon_two"
+        android:icon="@drawable/cancel_icon"
+        android:title="Cancel"/>
+    <item
+        android:id="@+id/delete_icon"
+        android:icon="@drawable/delete_icon"
+        android:title="Delete"/>
+    <item
+        android:id="@+id/defaultNavPlaceholder"
+        android:title="Default"
+        android:visible="false"/>
+</menu>

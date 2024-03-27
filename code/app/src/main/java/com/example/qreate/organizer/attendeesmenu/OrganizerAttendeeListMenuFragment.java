@@ -2,6 +2,7 @@ package com.example.qreate.organizer.attendeesmenu;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextMenu;
@@ -153,7 +154,7 @@ public class OrganizerAttendeeListMenuFragment extends Fragment {
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i], "date")));
+            events.add((new OrganizerEvent(cities[i], provinces[i], "date", Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID))));
         }
     }
 }

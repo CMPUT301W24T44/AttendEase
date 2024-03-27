@@ -32,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".organizer.OrganizerActivity"/>
         <activity android:name=".organizer.qrmenu.OrganizerQRGeneratorActivity"/>
         <activity android:name=".organizer.qrmenu.OrganizerQRReuseExistingActivity"/>
@@ -45,6 +46,9 @@
 
         <activity android:name=".attendee.AttendeeActivity"/>
         <activity android:name=".attendee.AttendeeQRScanner"/>
+        <activity android:name=".attendee.CapActivityForAttendeeQRScannerPage"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/zxing_CaptureTheme" />
         <activity android:name=".UpdateProfileScreenActivity" />
 
 

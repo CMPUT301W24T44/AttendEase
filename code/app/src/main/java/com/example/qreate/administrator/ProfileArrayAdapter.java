@@ -24,6 +24,7 @@ import java.util.ArrayList;
  */
 public class ProfileArrayAdapter extends ArrayAdapter<AdministratorProfile> {
     private int selectedPosition = -1; // Track the selected position
+    private ProfileArrayAdapter.OnProfileSelectedListener mListener;
 
     /**
      * Constructs a new {@link ProfileArrayAdapter}.
@@ -32,8 +33,9 @@ public class ProfileArrayAdapter extends ArrayAdapter<AdministratorProfile> {
      * @param profiles An ArrayList of {@link AdministratorProfile} objects to be represented in the ListView.
      *                 This value cannot be null.
      */
-    public ProfileArrayAdapter(Context context, ArrayList<AdministratorProfile> profiles) {
+    public ProfileArrayAdapter(Context context, ArrayList<AdministratorProfile> profiles, ProfileArrayAdapter.OnProfileSelectedListener listener) {
         super(context, 0, profiles);
+        mListener = listener;
     }
 
     /**
@@ -74,8 +76,26 @@ public class ProfileArrayAdapter extends ArrayAdapter<AdministratorProfile> {
             public void onClick(View v) {
                 selectedPosition = position; // Update the selected position
                 notifyDataSetChanged(); // Notify the adapter to update the radio buttons
+                mListener.onProfileSelected();
             }
         });
         return view;
+    }
+
+    public interface OnProfileSelectedListener {
+        void onProfileSelected();
+    }
+
+    public void clearSelection() {
+        selectedPosition = -1; // Reset the selected position
+        notifyDataSetChanged(); // Notify the adapter to refresh the list view
+    }
+
+    public String getSelectedProfileId() {
+        if (selectedPosition != -1) {
+            AdministratorProfile selectedProfile = getItem(selectedPosition);
+            return selectedProfile.getId();
+        }
+        return null;
     }
 }

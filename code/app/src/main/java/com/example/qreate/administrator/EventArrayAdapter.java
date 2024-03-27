@@ -23,14 +23,16 @@ import java.util.ArrayList;
  */
 public class EventArrayAdapter extends ArrayAdapter<AdministratorEvent> {
     private int selectedPosition = -1; // Track the selected position
+    private OnEventSelectedListener mListener;
 
     /**
      * Constructs a new {@code EventArrayAdapter}.
      * @param context The current context. Used to inflate the layout file.
      * @param events An ArrayList of {@link AdministratorEvent} objects to display in the list.
      */
-    public EventArrayAdapter(Context context, ArrayList<AdministratorEvent> events) {
+    public EventArrayAdapter(Context context, ArrayList<AdministratorEvent> events, OnEventSelectedListener listener) {
         super(context, 0, events);
+        mListener = listener;
     }
 
     /**
@@ -71,8 +73,29 @@ public class EventArrayAdapter extends ArrayAdapter<AdministratorEvent> {
             public void onClick(View v) {
                 selectedPosition = position; // Update the selected position
                 notifyDataSetChanged(); // Notify the adapter to update the radio buttons
+                mListener.onEventSelected();
             }
         });
         return view;
+    }
+
+    public interface OnEventSelectedListener {
+        void onEventSelected();
+    }
+
+    /*
+    public void clearSelection() {
+        selectedPosition = -1; // Reset the selected position
+        notifyDataSetChanged(); // Notify the adapter to refresh the list view
+    }
+
+     */
+
+    public String getSelectedEventId() {
+        if (selectedPosition != -1) {
+            AdministratorEvent selectedEvent = getItem(selectedPosition);
+            return selectedEvent.getId();
+        }
+        return null;
     }
 }

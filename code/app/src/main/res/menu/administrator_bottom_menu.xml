@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashboard_icon"
-        android:icon="@drawable/dashboardicon"
-        android:title="Dashboard"/>
+        android:id="@+id/events_icon"
+        android:icon="@drawable/event_icon_attendee_nav"
+        android:title="Events"/>
     <item
-        android:id="@+id/account_icon"
+        android:id="@+id/profiles_icon"
         android:icon="@drawable/account_icon"
-        android:title="Account"/>
+        android:title="Profiles"/>
+    <item
+        android:id="@+id/images_icon"
+        android:icon="@drawable/image_icon"
+        android:title="Images"/>
     <item
         android:id="@+id/defaultNavPlaceholder"
         android:title="Default"

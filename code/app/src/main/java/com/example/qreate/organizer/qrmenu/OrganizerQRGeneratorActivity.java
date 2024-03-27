@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -128,7 +129,7 @@ public class OrganizerQRGeneratorActivity extends AppCompatActivity {
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i],"date")));
+            events.add((new OrganizerEvent(cities[i], provinces[i],"date", "doesnt work here")));
         }
     }
     /**

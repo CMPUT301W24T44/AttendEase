@@ -1,6 +1,9 @@
 package com.example.qreate.organizer.notificationsmenu;
 
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -11,8 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.qreate.R;
 import com.example.qreate.organizer.qrmenu.OrganizerEvent;
 import com.example.qreate.organizer.qrmenu.OrganizerEventSpinnerArrayAdapter;
+import com.google.firebase.Firebase;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -76,13 +83,41 @@ public class OrganizerNotificationsSendActivity extends AppCompatActivity {
         });
     }
 
+//      // Dummy code (modify it after dennis has completed events)
+//    public void sendNotificationToAllUsers(String title, String message) {
+//        store db = FirestoreClient.getFirestore();
+//        ApiFuture<QuerySnapshot> query = db.collection("Attendees").get();
+//        List<String> fcmTokens = new ArrayList<>();
+//
+//        // Retrieve all documents from the "Attendees" collection
+//        QuerySnapshot querySnapshot = query.get();
+//        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+//        for (QueryDocumentSnapshot document : documents) {
+//            String fcmToken = document.getString("fcmToken");
+//            if (fcmToken != null && !fcmToken.isEmpty()) {
+//                fcmTokens.add(fcmToken);
+//            }
+//        }
+//
+//        // Prepare a message to be sent to all FCM tokens
+//        MulticastMessage message = MulticastMessage.builder()
+//                .putData("title", title)
+//                .putData("message", message)
+//                .addAllTokens(fcmTokens)
+//                .build();
+//
+//        // Send the message
+//        BatchResponse response = FirebaseMessaging.getInstance().sendMulticast(message);
+//        // You can log or handle the response if needed
+//    }
+
 
     //Temporary to test swap this with the firebase data
     private void addEventsInit(){
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i], "date")));
+            events.add((new OrganizerEvent(cities[i], provinces[i], "date", "idk why getting the device id doesnt work here")));
         }
     }
 }

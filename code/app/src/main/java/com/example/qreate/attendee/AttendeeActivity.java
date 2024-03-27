@@ -32,6 +32,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +59,7 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private BottomNavigationView bottomNavigationView;
     private String retrievedDocumentId;
+    private String tokenFCM;
 
     /**
      * Called when the activity is starting. This is where most initialization should go:
@@ -234,27 +236,35 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
         void onError(Exception e);
     }
 
+    public interface FCMTokenCallback {
+        void onTokenReceived(String tokenFCM);
+    }
+
     public void createAttendeeCollection() {
 
         retrieveUserDocument(new DocumentIdCallback() {
             @Override
             public void onDocumentIdRetrieved(String documentId) {
+                createFCMToken(new FCMTokenCallback() {
+                    @Override
+                    public void onTokenReceived(String tokenFCM) {
 
-                DocumentReference docRef = db.collection("Users").document(documentId);
-                List<String> eventList = new ArrayList<>();
+                        DocumentReference docRef = db.collection("Users").document(documentId);
+                        List<String> eventList = new ArrayList<>();
 
-                // Add all necessary document fields here
-                Map<String, Object> device = new HashMap<>();
-                device.put("user_document_id", docRef);
-                device.put("event_list", eventList);
+                        Map<String, Object> device = new HashMap<>();
+                        device.put("user_document_id", docRef);
+                        device.put("event_list", eventList);
+                        device.put("fcm_token", tokenFCM);
 
-                db.collection("Attendees").add(device);
-
+                        db.collection("Attendees").add(device);
+                    }
+                });
             }
 
             @Override
             public void onError(Exception e) {
-                // Handle the error, such as by logging or displaying a message
+
             }
         });
     }
@@ -327,6 +337,20 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
                     }
                 });
     }
+
+    public void createFCMToken(FCMTokenCallback callback) {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        //Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    String tokenFCM = task.getResult();
+                    callback.onTokenReceived(tokenFCM);
+                });
+    }
+
 //////////////////////////////////////////////// END //////////////////////////////////////////////////
 
 

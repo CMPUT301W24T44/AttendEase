@@ -3,6 +3,11 @@ package com.example.qreate;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -13,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -27,6 +33,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.qreate.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,7 +78,7 @@ public class EditProfileScreenFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context
+            throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -95,9 +102,14 @@ public class EditProfileScreenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.edit_profile_info, container, false);
+        //This one goes to the next screen, wherease the class AccountProfileScreenFragment destroys itself and returns to previous fragment
+        // so two classes, same fragment layout but different behaviour
+        // on pressing confirm, validates user details and returns
 
         Button confirmDataButton = view.findViewById(R.id.edit_profile_confirm_button);
+
         confirmDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +150,19 @@ public class EditProfileScreenFragment extends Fragment {
         String phone = editTextPhone.getText().toString();
         String email = editTextEmail.getText().toString();
         String homepage = editTextHomepage.getText().toString();
-        
-        
+
+
+        //generating initials
+        String initials = getInitials(name);
+        Bitmap profilePicture = generateProfilePicture(initials);
+
+        //fix
+        //set pfp to be new ImageView
+        ImageView emptyPfP = view.findViewById(R.id.empty_profile_pic);
+        emptyPfP.setImageBitmap(profilePicture);
+
+
+
         // Name condition check.
         if (TextUtils.isEmpty(name)) {
             nonEmptyInput = false;
@@ -163,6 +186,11 @@ public class EditProfileScreenFragment extends Fragment {
             nonEmptyInput = false;
         }
 
+        //check if initials are there
+        if (TextUtils.isEmpty(initials)) {
+            nonEmptyInput = false;
+        }
+
         // Button status
         boolean status = switchButton.isChecked();
 
@@ -174,7 +202,7 @@ public class EditProfileScreenFragment extends Fragment {
             Toast.makeText(getActivity(), "Invalid email address", Toast.LENGTH_SHORT).show();
 
         } else {
-            sendUserInfoToFirestore(name, phone, email, homepage, status);
+            sendUserInfoToFirestore(name, phone, email, homepage, status, profilePicture, initials);
             removeFragment(); //removes the fragment
         }
 
@@ -190,8 +218,10 @@ public class EditProfileScreenFragment extends Fragment {
      * @param email
      * @param homepage
      * @param status
+     * @param profilePicture
+     * @param initials
      */
-    private void sendUserInfoToFirestore(String name, String phone, String email, String homepage, boolean status) {
+    private void sendUserInfoToFirestore(String name, String phone, String email, String homepage, boolean status, Bitmap profilePicture, String initials) {
 
         // Get a Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -206,10 +236,71 @@ public class EditProfileScreenFragment extends Fragment {
         device.put("email", email);
         device.put("homepage", homepage);
         device.put("allow_coordinates", status);
+        device.put("profile_picture", encodeBitmap(profilePicture));
+        device.put("initials", initials);
 
         // Send the unique ID to Firestore
         db.collection("Users").add(device);
 
+    }
+
+    //bitmap to Base64
+    private String encodeBitmap(Bitmap profilePictureBitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] byteArray = baos.toByteArray();
+        String stringBase64 = android.util.Base64.encodeToString(byteArray, android.util.Base64.NO_WRAP);
+        return stringBase64;
+
+    }
+
+    /**
+     * Generate initials from user name
+     * @param name The user's name
+     * @return initials of user
+     */
+    private String getInitials(String name){
+        String [] words = name.split("\\s+");
+        StringBuilder initials = new StringBuilder();
+        for(int i = 0; i< words.length; i++){
+            String word = words[i];
+            if(!TextUtils.isEmpty(word) && Character.isLetter(word.charAt(0))){
+                initials.append(word.charAt(0));
+                if(i<words.length -1){
+                    initials.append(".");
+                }
+            }
+        }
+        return initials.toString().toUpperCase();
+    }
+
+    // generate a bitmap with initials drawn in
+    private Bitmap generateProfilePicture(String initials){
+        int width = 160;
+        int height = 160;
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        //background circle
+        Paint backgroundPaint = new Paint();
+        backgroundPaint.setColor(Color.parseColor("#FCA311"));
+        canvas.drawCircle(width/2f, height/2f, width / 2f, backgroundPaint);
+
+        //Draw initials in the text
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(70);
+        textPaint.setFakeBoldText(true);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+
+        // "/ 2f" will calculate center of bitmap
+        Rect textBounds = new Rect();
+        textPaint.getTextBounds(initials, 0, initials.length(), textBounds);
+        float x = canvas.getWidth()/ 2f;
+        float y = (canvas.getHeight()/ 2f) + (textBounds.height()/ 2f);
+        canvas.drawText(initials, x, y, textPaint);
+
+        return bitmap;
     }
 
     /**

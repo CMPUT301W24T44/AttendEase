@@ -2,16 +2,11 @@ package com.example.qreate.attendee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qreate.R;
@@ -35,7 +30,7 @@ import javax.annotation.Nullable;
  * @author Shraddha Mehta
  */
 
-public class AttendeeQRScanner extends AppCompatActivity{
+public class DoNotRemoveForNowAttendeeQRScanner extends AppCompatActivity{
 
     //variables
     ImageButton scanButton;
@@ -64,7 +59,7 @@ public class AttendeeQRScanner extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //make object
-                IntentIntegrator intentIntegrator = new IntentIntegrator(AttendeeQRScanner.this);
+                IntentIntegrator intentIntegrator = new IntentIntegrator(DoNotRemoveForNowAttendeeQRScanner.this);
                 intentIntegrator.setPrompt("Scan a QR code");
 
                 intentIntegrator.setOrientationLocked(true);
@@ -103,7 +98,7 @@ public class AttendeeQRScanner extends AppCompatActivity{
         }
         else {
             //handle if null
-            Toast.makeText(AttendeeQRScanner.this, "Scan cancelled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(DoNotRemoveForNowAttendeeQRScanner.this, "Scan cancelled",Toast.LENGTH_SHORT).show();
 
         }
 

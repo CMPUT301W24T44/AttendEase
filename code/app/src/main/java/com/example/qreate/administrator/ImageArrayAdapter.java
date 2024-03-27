@@ -24,14 +24,16 @@ import java.util.ArrayList;
  */
 public class ImageArrayAdapter extends ArrayAdapter<AdministratorImage> {
     private int selectedPosition = -1; // Track the selected position
+    private ImageArrayAdapter.OnImageSelectedListener mListener;
 
     /**
      * Constructs a new {@code ImageArrayAdapter}.
      * @param context The current context. Used to inflate the layout file.
      * @param images An ArrayList of {@link AdministratorImage} objects to display in the list.
      */
-    public ImageArrayAdapter(Context context, ArrayList<AdministratorImage> images) {
+    public ImageArrayAdapter(Context context, ArrayList<AdministratorImage> images, ImageArrayAdapter.OnImageSelectedListener listener) {
         super(context, 0, images);
+        mListener = listener;
     }
 
     /**
@@ -72,8 +74,28 @@ public class ImageArrayAdapter extends ArrayAdapter<AdministratorImage> {
             public void onClick(View v) {
                 selectedPosition = position; // Update the selected position
                 notifyDataSetChanged(); // Notify the adapter to update the radio buttons
+                mListener.onImageSelected();
             }
         });
         return view;
+    }
+
+    public interface OnImageSelectedListener {
+        void onImageSelected();
+    }
+
+    /*
+    public void clearSelection() {
+        selectedPosition = -1; // Reset the selected position
+        notifyDataSetChanged(); // Notify the adapter to refresh the list view
+    }
+     */
+
+    public String getSelectedImageId() {
+        if (selectedPosition != -1) {
+            AdministratorImage selectedImage = getItem(selectedPosition);
+            return selectedImage.getId();
+        }
+        return null;
     }
 }
