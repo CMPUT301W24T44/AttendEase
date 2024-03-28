@@ -237,7 +237,6 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
 
     public void setupDetailsNavigationBar() {
         BottomNavigationView detailsNavBar = findViewById(R.id.attendee_view_details_navigation_bar);
-        BottomNavigationView navBar = findViewById(R.id.attendee_navigation_bar);
 
         detailsNavBar.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
