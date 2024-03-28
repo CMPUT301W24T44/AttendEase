@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -23,6 +24,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
@@ -30,8 +35,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.qreate.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
@@ -57,6 +69,12 @@ public class EditProfileScreenFragment extends Fragment {
 
     // Compile the regex into a Pattern object
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final int PICK_IMAGE_REQUEST = 1;
+
+    private Uri selectedImageUri;
+    private OnFragmentInteractionListener mListener;
+    private ImageView profileImageView;
+
 
     /**
      * Interface for implementing onFragmentDestroyed().
@@ -70,10 +88,9 @@ public class EditProfileScreenFragment extends Fragment {
     /**
      * Interface for the fragment listener
      */
-    private OnFragmentInteractionListener mListener;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -82,6 +99,32 @@ public class EditProfileScreenFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+    private void fetchUserProfile() {
+        String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Users")
+                .whereEqualTo("device_id", device_id)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        String imageUrl = document.getString("profile_picture");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Use Picasso to load the image
+                            Picasso.get()
+                                    .load(imageUrl)
+                                    .into(profileImageView);
+                        } else {
+                            // Handle case where imageUrl is null or empty
+                            Log.d("EditProfile", "No profile image URL found.");
+                        }
+                    } else {
+                        Log.e("EditProfile", "Error fetching user profile.", task.getException());
+                    }
+                });
+    }
+
 
     /**
      * Creates view and inflates the edit_profile_info layout.
@@ -108,6 +151,7 @@ public class EditProfileScreenFragment extends Fragment {
         // so two classes, same fragment layout but different behaviour
         // on pressing confirm, validates user details and returns
 
+        profileImageView = view.findViewById(R.id.empty_profile_pic);
         Button confirmDataButton = view.findViewById(R.id.edit_profile_confirm_button);
 
         confirmDataButton.setOnClickListener(new View.OnClickListener() {
@@ -124,11 +168,58 @@ public class EditProfileScreenFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("ProfilePic", "Add photo button pressed");
                 Intent intent = new Intent(getActivity(), UpdateProfileScreenActivity.class);
-                startActivity(intent);
+                mGetContent.launch(intent);
             }
         });
+        fetchUserProfile();
 
         return view;
+    }
+
+
+    private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null && data.getData() != null) {
+                        selectedImageUri = data.getData();
+
+                        // Set the ImageView with the new image URI using Picasso
+                        Picasso.get()
+                                .load(selectedImageUri)
+                                .into(profileImageView);
+
+                        // Continue with updating the Firestore
+                        updateProfilePictureInFirestore(selectedImageUri.toString());
+                    }
+                }
+            });
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchUserProfile();
+    }
+
+    // Method to update Firestore with the new image URI
+    private void updateProfilePictureInFirestore(String imageUrl) {
+        String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Users").document(device_id)
+                .update("profile_picture", imageUrl)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("EditProfile", "Profile image updated successfully.");
+                    Toast.makeText(getContext(), "Profile image updated.", Toast.LENGTH_SHORT).show();
+
+                    // Refresh the profile ImageView after successful update
+                    fetchUserProfile();
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("EditProfile", "Error updating profile image.", e);
+                });
     }
 
 
@@ -222,27 +313,37 @@ public class EditProfileScreenFragment extends Fragment {
      * @param initials
      */
     private void sendUserInfoToFirestore(String name, String phone, String email, String homepage, boolean status, Bitmap profilePicture, String initials) {
-
-        // Get a Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Log.d("FirestoreConnection", "Firestore has been initialized.");
-        // Get the unique Android ID
         String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        // Prepare the data to send
-        Map<String, Object> device = new HashMap<>();
-        device.put("device_id", device_id);
-        device.put("name", name);
-        device.put("phone_number", phone);
-        device.put("email", email);
-        device.put("homepage", homepage);
-        device.put("allow_coordinates", status);
-        device.put("profile_picture", encodeBitmap(profilePicture));
-        device.put("initials", initials);
 
-        // Send the unique ID to Firestore
-        db.collection("Users").add(device);
+        Map<String, Object> user = new HashMap<>();
+        user.put("device_id", device_id);
+        user.put("name", name);
+        user.put("phone_number", phone);
+        user.put("email", email);
+        user.put("homepage", homepage);
+        user.put("allow_coordinates", status);
+        user.put("initials", initials);
 
+        // Decide whether to use the URI or the encoded Bitmap
+        if (selectedImageUri != null) {
+            // If you have a URI, presumably you've uploaded the image to Firebase Storage and should use the URI
+            user.put("profile_picture", selectedImageUri.toString());
+        } else if (profilePicture != null) {
+            // Otherwise, if you have a Bitmap, encode it
+            user.put("profile_picture", encodeBitmap(profilePicture));
+        } else {
+            // Handle the case where there's no picture
+            Log.d("Firestore", "No profile picture to upload");
+        }
+
+        // Assuming you're updating an existing user document
+        db.collection("Users").document(device_id)
+                .update(user)
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "User info updated successfully"))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error updating user info", e));
     }
+
 
     //bitmap to Base64
     private String encodeBitmap(Bitmap profilePictureBitmap) {
@@ -273,6 +374,7 @@ public class EditProfileScreenFragment extends Fragment {
         }
         return initials.toString().toUpperCase();
     }
+
 
     // generate a bitmap with initials drawn in
     private Bitmap generateProfilePicture(String initials){
