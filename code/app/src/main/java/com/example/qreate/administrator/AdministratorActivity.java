@@ -41,6 +41,7 @@ public class AdministratorActivity extends AppCompatActivity implements EditProf
     private String selectedEventId;
     private String selectedProfileId;
     private String selectedImageId;
+    private String selectedImageType;
 
 
     /**
@@ -290,8 +291,9 @@ public class AdministratorActivity extends AppCompatActivity implements EditProf
                         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.administrator_handler_frame);
                         if (currentFragment instanceof AdministratorDashboardFragment) {
                             selectedImageId = ((AdministratorDashboardFragment) currentFragment).getSelectedImageId();
+                            selectedImageType = ((AdministratorDashboardFragment) currentFragment).getSelectedImageType();
                             if (selectedImageId != null) {
-                                navigateToImageDetails(selectedImageId);
+                                navigateToImageDetails(selectedImageId, selectedImageType);
                             }
                         }
                     }
@@ -309,8 +311,8 @@ public class AdministratorActivity extends AppCompatActivity implements EditProf
         transaction.commit();
     }
 
-    private void navigateToImageDetails(String imageId) {
-        AdministratorImageDetailsFragment detailsFragment = AdministratorImageDetailsFragment.newInstance(imageId);
+    private void navigateToImageDetails(String imageId, String imageType) {
+        AdministratorImageDetailsFragment detailsFragment = AdministratorImageDetailsFragment.newInstance(imageId, imageType);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.administrator_handler_frame, detailsFragment);
         transaction.addToBackStack(null);

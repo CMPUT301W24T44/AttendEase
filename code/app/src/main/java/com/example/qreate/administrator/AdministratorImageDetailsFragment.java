@@ -1,6 +1,7 @@
 package com.example.qreate.administrator;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,55 +33,37 @@ public class AdministratorImageDetailsFragment extends Fragment {
         // Retrieve the event ID passed from the previous fragment
         Bundle args = getArguments();
         String imageId = null;
+        String imageType = null;
         if (args != null) {
             imageId = args.getString("imageId");
+            imageType = getArguments().getString("imageType");
         }
 
         // Query Firestore for the event details using the event ID
-        if (imageId != null) {
-            db.collection("Profiles").document(imageId)
+        if (imageId != null && imageType != null) {
+            db.collection(imageType).document(imageId)
                     .get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                // Extract event details from the document and update the UI
                                 //image.setText(document.getString("profile_picture"));
                                 imageRef.setText(document.getString("name"));
-                                // Ensure you have fields named accordingly in your Firestore document
                             } else {
-                                // Handle case where the document does not exist
+                                Log.d("Firestore", "Error getting documents: ", task.getException());
                             }
                         } else {
-                            // Handle task failure
-                        }
-                    });
-        }
-
-        if (imageId != null) {
-            db.collection("Events").document(imageId)
-                    .get().addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                // Extract event details from the document and update the UI
-                                //image.setText(document.getString("profile_picture"));
-                                imageRef.setText(document.getString("name"));
-                                // Ensure you have fields named accordingly in your Firestore document
-                            } else {
-                                // Handle case where the document does not exist
-                            }
-                        } else {
-                            // Handle task failure
+                            Log.d("Firestore", "Task Failure: ", task.getException());
                         }
                     });
         }
         return view;
     }
 
-    public static AdministratorImageDetailsFragment newInstance(String imageId) {
+    public static AdministratorImageDetailsFragment newInstance(String imageId, String imageType) {
         AdministratorImageDetailsFragment fragment = new AdministratorImageDetailsFragment();
         Bundle args = new Bundle();
         args.putString("imageId", imageId);
+        args.putString("imageType", imageType);
         fragment.setArguments(args);
         return fragment;
     }

@@ -15,11 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.qreate.EditProfileScreenFragment;
 import com.example.qreate.HomeScreenFragment;
 import com.example.qreate.R;
 import com.example.qreate.WelcomeScreenFragment;
+import com.example.qreate.administrator.AdministratorDashboardFragment;
+import com.example.qreate.administrator.AdministratorEventDetailsFragment;
 import com.example.qreate.attendee.AttendeeEventDetailsFragment;
 import com.example.qreate.attendee.AttendeeNotificationsFragment;
 import com.example.qreate.attendee.AttendeeScanFragment;
@@ -60,6 +63,7 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
     private BottomNavigationView bottomNavigationView;
     private String retrievedDocumentId;
     private String tokenFCM;
+    private String selectedEventId;
 
     /**
      * Called when the activity is starting. This is where most initialization should go:
@@ -217,6 +221,51 @@ public class AttendeeActivity extends AppCompatActivity implements EditProfileSc
     public void showBottomNavigationBar() {
         BottomNavigationView navBar = findViewById(R.id.attendee_navigation_bar);
         navBar.setVisibility(View.VISIBLE); // Make the bottom navigation bar reappear
+    }
+
+    public void showDetailsNavigationBar() {
+        BottomNavigationView navBar = findViewById(R.id.attendee_view_details_navigation_bar);
+        navBar.setVisibility(View.VISIBLE);
+        navBar.setSelectedItemId(R.id.defaultNavPlaceholder);
+        setupDetailsNavigationBar();
+    }
+
+    public void hideDetailsNavigationBar() {
+        BottomNavigationView navBar = findViewById(R.id.attendee_view_details_navigation_bar);
+        navBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void setupDetailsNavigationBar() {
+        BottomNavigationView detailsNavBar = findViewById(R.id.attendee_view_details_navigation_bar);
+        BottomNavigationView navBar = findViewById(R.id.attendee_navigation_bar);
+
+        detailsNavBar.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.cancel_icon) {
+                    hideDetailsNavigationBar();
+                    showBottomNavigationBar();
+                } else if (itemId == R.id.events_icon) {
+                    Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.attendee_handler_frame);
+                    if (currentFragment instanceof OtherEventsFragment) {
+                        selectedEventId = ((OtherEventsFragment) currentFragment).getSelectedEventId();
+                        if (selectedEventId != null) {
+                            navigateToEventDetails(selectedEventId);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    private void navigateToEventDetails(String eventId) {
+        AttendeeEventViewDetailsFragment detailsFragment = AttendeeEventViewDetailsFragment.newInstance(eventId);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.attendee_handler_frame, detailsFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

@@ -1,10 +1,14 @@
 package com.example.qreate.organizer.attendeesmenu;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +30,9 @@ import com.example.qreate.R;
 import com.example.qreate.organizer.OrganizerActivity;
 import com.example.qreate.organizer.qrmenu.OrganizerEvent;
 import com.example.qreate.organizer.qrmenu.OrganizerEventSpinnerArrayAdapter;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -96,7 +103,46 @@ public class OrganizerAttendeeListMenuFragment extends Fragment {
 
         eventsSpinner.setAdapter(eventSpinnerArrayAdapter);
 
+        fetchProfilePicInfoFromDataBase();
+
         return view;
+    }
+
+    private void fetchProfilePicInfoFromDataBase(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        db.collection("Users")
+                .whereEqualTo("device_id", device_id)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if(querySnapshot != null && !querySnapshot.isEmpty()){
+                            DocumentSnapshot documentSnap = querySnapshot.getDocuments().get(0);
+                            String generatedProfilePicBase64 = documentSnap.getString("generated_pic");
+                            if(generatedProfilePicBase64 != null){
+                                //decode and then set
+                                Bitmap profileBitmap = decodeBase64(generatedProfilePicBase64);
+
+                                //set to image button
+                                ImageButton defaultProfileButton = getView().findViewById(R.id.attendee_list_menu_screen_profile_button);
+                                defaultProfileButton.setImageBitmap(profileBitmap);
+
+                            }
+                        }
+                    }else {
+                        Log.e("FetchInfoFromUser", "Error fetching info from firestore", task.getException());
+                    }
+                });
+
+
+    }
+
+    private Bitmap decodeBase64(String generatedProfilePicBase64) {
+        byte[] bytes = android.util.Base64.decode(generatedProfilePicBase64, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes,0, bytes.length);
     }
 
     //Creates the profile pop up menu

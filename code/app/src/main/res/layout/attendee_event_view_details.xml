@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_dark_blue"
+    android:layout_marginTop="150dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/event_details_poster"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/poster" />
+
+        <TextView
+            android:id="@+id/event_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="10dp"
+            android:text="Event"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/event_details_organizer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:text="Event Organizer"
+            android:textColor="#D9D9D9"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/event_details_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:text="Event Description"
+            android:textColor="#D9D9D9"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/event_details_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:text="Date"
+            android:textColor="#D9D9D9"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/event_details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:text="Time"
+            android:textColor="#D9D9D9"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/event_details_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:text="Location"
+            android:textColor="#D9D9D9"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/event_details_cancel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/yellow"
+        android:text="Cancel"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/event_details_signup_button"/>
+
+    <Button
+        android:id="@+id/event_details_signup_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/blue_button"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintStart_toEndOf="@+id/event_details_cancel_button"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

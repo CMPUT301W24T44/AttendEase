@@ -2,6 +2,7 @@ package com.example.qreate.organizer.qrmenu;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -11,6 +12,9 @@ import android.widget.Spinner;
 import com.example.qreate.R;
 import com.example.qreate.organizer.qrmenu.OrganizerEvent;
 import com.example.qreate.organizer.qrmenu.OrganizerEventSpinnerArrayAdapter;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 public class OrganizerQRShareActivity extends AppCompatActivity {
     ArrayList<OrganizerEvent> events;
+    private FirebaseFirestore db;
     Spinner eventsSpinner;
     OrganizerEventSpinnerArrayAdapter eventSpinnerArrayAdapter;
 
@@ -25,6 +30,7 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizer_share_qr_code_screen);
+        db = FirebaseFirestore.getInstance();
 
         events = new ArrayList<OrganizerEvent>();
 
@@ -83,6 +89,22 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
         for(int i=0;i<cities.length;i++){
             events.add((new OrganizerEvent(cities[i], provinces[i],"date", "doesnt work")));
         }
+        // this code literally does the same thing but grabbing from firebase idk why it doesnt work TODO fix it
+        /*CollectionReference eventsRef = db.collection("Events");
+
+        eventsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String eventName = document.getString("name");
+                    String eventDetails = document.getString("description");
+                    String eventDate = document.getString("date");
+                    String eventOrganizer = document.getString("organizer");
+                    events.add(new OrganizerEvent(eventName, eventDetails, eventDate, eventOrganizer));
+                }
+            } else {
+                Log.d("Firestore", "Error getting documents: ", task.getException());
+            }
+        });*/
     }
 }
 

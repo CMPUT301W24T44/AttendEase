@@ -30,8 +30,7 @@
             android:fontFamily="@font/poppins_bold"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
-            android:paddingTop="25dp"
-            android:text="Event 1 Poster" />
+            android:paddingTop="25dp" />
 
     </LinearLayout>
 

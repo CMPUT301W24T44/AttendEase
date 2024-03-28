@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 
 public class NotifArrayAdapter extends ArrayAdapter<Notif> {
-    private final ArrayList<Notif> notifs;
-    private final Context context;
+    private ArrayList<Notif> notifs;
+    private Context mContext;
 
     /**
      * Constructs a new NotifArrayAdapter.
@@ -38,7 +38,7 @@ public class NotifArrayAdapter extends ArrayAdapter<Notif> {
     public NotifArrayAdapter(Context context, ArrayList<Notif> notifs){
         super(context,0,notifs);
         this.notifs = notifs;
-        this.context=context;
+        this.mContext=context;
     }
     /**
      * Provides a view for an AdapterView
@@ -51,25 +51,24 @@ public class NotifArrayAdapter extends ArrayAdapter<Notif> {
      * @return A View corresponding to the data at the specified position.
      */
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
-        View view = convertView;
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.attendee_notifications_list_rows, parent,false);
+        View viewItem = convertView;
+
+        if(viewItem == null){
+            viewItem = LayoutInflater.from(mContext).inflate(R.layout.attendee_notifications_list_rows, parent,false);
         }
 
-        Notif notif = notifs.get(position);
+        Notif currentNotif = notifs.get(position);
 
-        TextView notifName = view.findViewById(R.id.notif_description_text);
-        TextView organizerName = view.findViewById(R.id.notif_organizer_text);
+        TextView notifName = viewItem.findViewById(R.id.notif_description_text);
+        TextView organizerName = viewItem.findViewById(R.id.notif_organizer_text);
 
-        notifName.setText(notif.getNotificationDescription());
-        organizerName.setText(notif.getOrganizerName());
+        notifName.setText(currentNotif.getNotificationDescription());
+        organizerName.setText(currentNotif.getOrganizerName());
 
-        return view;
+        return viewItem;
     }
 
 }

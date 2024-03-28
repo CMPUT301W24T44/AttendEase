@@ -98,4 +98,14 @@ public class ImageArrayAdapter extends ArrayAdapter<AdministratorImage> {
         }
         return null;
     }
+
+    public String getSelectedImageType() {
+        if (selectedPosition != -1) {
+            AdministratorImage selectedImage = getItem(selectedPosition);
+            if (selectedImage != null) {
+                return selectedImage.getImageType();
+            }
+        }
+        return null;
+    }
 }

@@ -7,16 +7,18 @@ public class AdministratorImage {
     private String imageName;
     private String image;
     private String id;
+    private String imageType; // "Profiles" or "Events"
 
     /**
      * This is a constructor for the AdministratorImage class
      * @param imageName the reference name of the image i.e. profile name image or event name poster
      * @param image the image in string form
      */
-    public AdministratorImage(String imageName, String image, String id) {
+    public AdministratorImage(String imageName, String image, String id, String imageType) {
         this.imageName = imageName;
         this.image = image;
         this.id = id;
+        this.imageType = imageType;
     }
 
     /**
@@ -38,4 +40,9 @@ public class AdministratorImage {
     public String getId() {
         return id;
     }
+
+    public String getImageType() {
+        return imageType;
+    }
+
 }

@@ -23,7 +23,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:text="Event Name:"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
@@ -31,10 +31,11 @@
         android:layout_below="@+id/eventNameText"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
         android:gravity="start"
         android:background="@color/white"
         android:layout_width="350dp"
-        android:layout_height="25dp" />
+        android:layout_height="35dp" />
 
     <TextView
         android:id="@+id/eventDescriptionText"
@@ -44,7 +45,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:text="Event Description:"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
@@ -52,44 +53,43 @@
         android:layout_below="@id/eventDescriptionText"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         android:gravity="start"
         android:layout_width="350dp"
-        android:layout_height="25dp" />
+        android:layout_height="100dp" />
     <TextView
         android:id="@+id/dateText"
         android:layout_below="@id/editTextEventDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Date"
-        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:text="Select Date: "
+        android:textSize="20sp"
         android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dateButton"
-        android:layout_width="115dp"
+    <Button
+        android:id="@+id/dateselector"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
         android:layout_below="@id/dateText"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/rounded_blue_buttons"
-        android:text="Select Date"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:hint="Jan 01 2024"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        style="@style/Widget.AppCompat.Spinner.Underlined"/>
 
     <TextView
         android:id="@+id/uploadPosterText"
-        android:layout_below="@id/dateButton"
+        android:layout_below="@id/dateselector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:text="Upload Poster:"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -104,30 +104,52 @@
         android:textStyle="bold"
         android:visibility="gone"/>
 
-    <ImageButton
-        android:id="@+id/buttonUploadPoster"
-        android:src="@drawable/uploadimgicon"
-        android:layout_below="@id/uploadPosterText"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_width="250dp"
-        android:layout_height="125dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:visibility="visible"
-        />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonCreateEvent"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonUploadPoster"
+        android:layout_below="@id/limitSignupsText"
         android:background="@drawable/rounded_blue_buttons"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="25dp"
         android:textColor="@color/white"
         android:text="Create"
         android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/uploadButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uploadPosterText"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_white_ish"
+        android:text="Click Here To Select Image" />
+
+    <TextView
+        android:id="@+id/limitSignupsText"
+        android:layout_below="@id/uploadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="Limit Signups to:"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/signupNumber"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/uploadButton"
+        android:layout_toRightOf="@id/limitSignupsText"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:inputType="phone"
+        android:hint=" ∞"
+        android:maxLength="8"
+        android:textSize="20sp" />
+
 
 </RelativeLayout>

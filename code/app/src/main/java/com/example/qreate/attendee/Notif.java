@@ -21,9 +21,6 @@ public class Notif {
      * @param notification The notification message content.
      * @param organizer The name of the organizer related to this notification.
      */
-
-
-
     Notif(String notification, String organizer){
         this.notification = notification;
         this.organizer = organizer;
@@ -36,7 +33,7 @@ public class Notif {
      */
 
     String getNotificationDescription(){
-        return this.notification;
+        return notification;
     }
 
     /**
@@ -46,6 +43,6 @@ public class Notif {
      */
 
     String getOrganizerName(){
-        return this.organizer;
+        return organizer;
     }
 }

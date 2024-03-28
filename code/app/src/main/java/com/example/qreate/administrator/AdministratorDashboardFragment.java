@@ -1,9 +1,13 @@
 package com.example.qreate.administrator;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,8 +26,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.qreate.AccountProfileScreenFragment;
 import com.example.qreate.R;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +74,46 @@ public class AdministratorDashboardFragment extends Fragment implements EventArr
             }
         });
 
+        fetchProfilePicInfoFromDataBase(view);
+
         return view;
+    }
+
+    private void fetchProfilePicInfoFromDataBase(View rootView){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        db.collection("Users")
+                .whereEqualTo("device_id", device_id)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if(querySnapshot != null && !querySnapshot.isEmpty()){
+                            DocumentSnapshot documentSnap = querySnapshot.getDocuments().get(0);
+                            String generatedProfilePicBase64 = documentSnap.getString("generated_pic");
+                            if(generatedProfilePicBase64 != null){
+                                //decode and then set
+                                Bitmap profileBitmap = decodeBase64(generatedProfilePicBase64);
+
+                                //set to image button
+                                ImageButton defaultProfileButton = rootView.findViewById(R.id.admin_dashboard_profile_button);
+                                defaultProfileButton.setImageBitmap(profileBitmap);
+
+                            }
+                        }
+                    }else {
+                        Log.e("FetchInfoFromUser", "Error fetching info from firestore", task.getException());
+                    }
+                });
+
+
+    }
+
+    private Bitmap decodeBase64(String generatedProfilePicBase64) {
+        byte[] bytes = android.util.Base64.decode(generatedProfilePicBase64, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes,0, bytes.length);
     }
     public void loadEvents() {
         CollectionReference eventsRef = db.collection("Events");
@@ -137,7 +182,7 @@ public class AdministratorDashboardFragment extends Fragment implements EventArr
                     String imageName = document.getString("name");
                     String image = document.getString("profile_picture");
                     String imageId = document.getId();
-                    imagesList.add(new AdministratorImage(imageName, image, imageId));
+                    imagesList.add(new AdministratorImage(imageName, image, imageId, "Profiles"));
                 }
                 // Update the adapter with the new list
                 imageArrayAdapter.addAll(imagesList);
@@ -154,7 +199,7 @@ public class AdministratorDashboardFragment extends Fragment implements EventArr
                     String imageName = document.getString("name");
                     String image = document.getString("poster");
                     String imageId = document.getId();
-                    imagesList.add(new AdministratorImage(imageName, image, imageId));
+                    imagesList.add(new AdministratorImage(imageName, image, imageId, "Events"));
                 }
                 // Update the adapter with the new list
                 imageArrayAdapter.addAll(imagesList);
@@ -262,6 +307,10 @@ public class AdministratorDashboardFragment extends Fragment implements EventArr
 
     public String getSelectedImageId() {
         return imageArrayAdapter.getSelectedImageId();
+    }
+
+    public String getSelectedImageType() {
+        return imageArrayAdapter.getSelectedImageType();
     }
 
     public String getSelectedProfileId() {

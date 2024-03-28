@@ -1,6 +1,7 @@
 package com.example.qreate.administrator;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,10 +62,10 @@ public class AdministratorEventDetailsFragment extends Fragment {
                                 eventLocation.setText(document.getString("location"));
                                 // Ensure you have fields named accordingly in your Firestore document
                             } else {
-                                // Handle case where the document does not exist
+                                Log.d("Firestore", "Error getting documents: ", task.getException());
                             }
                         } else {
-                            // Handle task failure
+                            Log.d("Firestore", "Task Failure: ", task.getException());
                         }
                     });
         }

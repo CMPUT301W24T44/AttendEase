@@ -31,5 +31,35 @@
         app:itemIconTint="@color/bottom_menu_selector"
         app:menu="@menu/attendee_bottom_menu" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/attendee_view_details_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/bottom_menu_background"
+        android:elevation="2dp"
+        app:itemIconSize="43dp"
+        android:visibility="invisible"
+        app:menu="@menu/administrator_view_details_menu"
+        app:itemIconTint="@color/bottom_menu_selector"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/attendee_delete_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/bottom_menu_background"
+        android:elevation="2dp"
+        app:itemIconSize="43dp"
+        android:visibility="invisible"
+        app:menu="@menu/administrator_delete_menu"
+        app:itemIconTint="@color/bottom_menu_selector"/>
+
 
 </RelativeLayout>

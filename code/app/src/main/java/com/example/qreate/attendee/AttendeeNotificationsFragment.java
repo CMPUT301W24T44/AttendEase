@@ -1,9 +1,13 @@
 package com.example.qreate.attendee;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +30,7 @@ import com.example.qreate.R;
 import com.example.qreate.organizer.OrganizerActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,8 +42,6 @@ import java.util.ArrayList;
  * fetching notification data from Firestore and displaying it in a ListView. Each notification
  * consists of a message and details, encapsulated in a Notif object. The fragment uses a custom
  * ArrayAdapter (NotifArrayAdapter) to display the notifications in the ListView.
- *
- * Outstanding: Receiving from organizer from firebase
  *
  * @author Shraddha Mehta
  */
@@ -86,12 +90,6 @@ public class AttendeeNotificationsFragment extends Fragment {
         notificationsListView = view.findViewById(R.id.notif_list_view);
         notificationsListView.setAdapter(notifArrayAdapter);
 
-
-        //Fetch Data from firestore
-        db = FirebaseFirestore.getInstance();
-        fetchNotificationsFromFireStore();
-
-
         //set up item click listener
         notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
               @Override
@@ -99,6 +97,9 @@ public class AttendeeNotificationsFragment extends Fragment {
 
             }
         });
+
+        fetchProfilePicInfoFromDataBase();
+        //fetchNotificationsFromFireStore();
 
         return view;
     }
@@ -108,32 +109,73 @@ public class AttendeeNotificationsFragment extends Fragment {
      * them to the notificationsArrayList. It then notifies the notifArrayAdapter of the data
      * change to refresh the ListView. If there is an error fetching data, it logs the error.
      */
+//    private void fetchNotificationsFromFireStore() {
+//        db.collection("notifications")
+//                .get()
+//                .addOnSuccessListener(querySnapshot -> {
+//                    for(QueryDocumentSnapshot documentSnapshot : querySnapshot){
+//                        String notificationMessage = documentSnapshot.getString("message");
+//                        String organizerDetails = documentSnapshot.getString("details");
+//
+//                        Notif notification = new Notif(notificationMessage, organizerDetails);
+//                        notificationsArrayList.add(notification);
+//                    }
+//                    notifArrayAdapter.notifyDataSetChanged();
+//                })
+//                .addOnFailureListener(e -> {
+//                    Log.e("Firestore", "Error fetching notifications", e);
+//                    Toast.makeText(getContext(), "failed to fetch notifications. Try again later.", Toast.LENGTH_SHORT).show();
+//                });
+//    }
 
+    /**
+     * Fetch info about user information specifically their profile pic stored on firebase
+     */
+    private void fetchProfilePicInfoFromDataBase(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-    private void fetchNotificationsFromFireStore() {
-        db.collection("notifications")
+        db.collection("Users")
+                .whereEqualTo("device_id", device_id)
+                .limit(1)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot querySnapshot) {
-                        for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
-                            String notificationMessage = documentSnapshot.getString("message");
-                            String notificationsDetails = documentSnapshot.getString("details");
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if(querySnapshot != null && !querySnapshot.isEmpty()){
+                            DocumentSnapshot documentSnap = querySnapshot.getDocuments().get(0);
+                            String generatedProfilePicBase64 = documentSnap.getString("generated_pic");
+                            if(generatedProfilePicBase64 != null){
+                                //decode and then set
+                                Bitmap profileBitmap = decodeBase64(generatedProfilePicBase64);
 
-                            Notif notification = new Notif(notificationMessage, notificationsDetails);
-                            notificationsArrayList.add(notification);
+                                //set to image button
+                                ImageButton defaultProfileButton = getView().findViewById(R.id.profile);
+                                defaultProfileButton.setImageBitmap(profileBitmap);
+
+                            }
                         }
-                        notifArrayAdapter.notifyDataSetChanged();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Firestore", "error fetching notifications", e);
+                    }else {
+                        Log.e("FetchInfoFromUser", "Error fetching info from firestore", task.getException());
                     }
                 });
+
     }
 
+    /**
+     * Returns a bitmap image from a generated profile pic stored in Base64 on Firebase
+     * @param generatedProfilePicBase64
+     * @return bitmap of generated profile pic
+     */
+    private Bitmap decodeBase64(String generatedProfilePicBase64) {
+        byte[] bytes = android.util.Base64.decode(generatedProfilePicBase64, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+    }
+
+    /**
+     * To make the drop down dashboard button functional
+     * @param view
+     */
     private void showPopupMenu(View view) {
         // Initialize the PopupMenu
         PopupMenu popupMenu = new PopupMenu(getActivity(), view); // For Fragment, use getActivity() instead of this
@@ -167,6 +209,9 @@ public class AttendeeNotificationsFragment extends Fragment {
         popupMenu.show();
     }
 
+    /**
+     * Switching views when user needs to update their profile
+     */
     private void accountProfile() {
         //Handles fragment transaction related to the account profile
 
@@ -178,5 +223,7 @@ public class AttendeeNotificationsFragment extends Fragment {
         transaction.addToBackStack(null); // Add this transaction to the back stack
         transaction.commit();
     }
+
+
 
 }

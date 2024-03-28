@@ -2,6 +2,7 @@ package com.example.qreate;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.qreate.administrator.AdministratorActivity;
 import com.example.qreate.attendee.AttendeeActivity;
+import com.example.qreate.attendee.GenerateProfilePic;
 import com.example.qreate.organizer.OrganizerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -88,9 +92,85 @@ public class AccountProfileScreenFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Turns bitmap into Base64 in order to store it to Firestore
+     * @param profilePictureBitmap a bitmap
+     * @return Base64 of the bitmap
+     */
+    private String encodeBitmap(Bitmap profilePictureBitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] byteArray = baos.toByteArray();
+        String stringBase64 = android.util.Base64.encodeToString(byteArray, android.util.Base64.NO_WRAP);
+        return stringBase64;
+
+    }
+
+    /**
+     * Generate initials from user name from Firestore
+     * @param name The user's name
+     * @return initials of user in string format
+     */
+
+    private String getInitials(String name){
+        String [] words = name.split("\\s+");
+        StringBuilder initials = new StringBuilder();
+
+        //ensure only first and/or last name is entered
+        int nameCount = words.length;
+        if(nameCount >= 1){
+            String firstName = words[0];
+            // if no last name dont add a "."
+            String lastName = (nameCount > 1) ? words[nameCount -1 ]: "";
+
+            //add first name only first letter
+            if(!TextUtils.isEmpty(firstName)){
+                for (char c : firstName.toCharArray()){
+                    if(Character.isLetter(c)){
+                        initials.append(Character.toUpperCase(c));
+                        break;
+                    }
+                }
+            }
+
+            //add dot if there is a first and last name
+            if(!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && isLetters(firstName) && isLetters(lastName)){
+                initials.append(".");
+            }
+
+            //add last name only first letter
+            if(!TextUtils.isEmpty(lastName)){
+                for(char c : lastName.toCharArray()){
+                    if(Character.isLetter(c)){
+                        initials.append(Character.toUpperCase(c));
+                        break;
+                    }
+                }
+            }
+        }
+        return initials.toString();
+
+    }
+
+    /**
+     * Checks if name entered by user is letters
+     * @param name
+     * @return true if name is appropriate, false if not
+     */
+    private boolean isLetters(String name){
+        for(char c: name.toCharArray()){
+            if(Character.isLetter(c)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
-    // authenticates updated user info
+    /**
+     * Authenticates updated user info
+     * @param view
+     */
     private void authenticateUserInfo(View view) {
 
         boolean nonEmptyInput = true;
@@ -109,6 +189,8 @@ public class AccountProfileScreenFragment extends Fragment {
         String email = editTextEmail.getText().toString();
         String homepage = editTextHomepage.getText().toString();
 
+        //generate a profile pic if none stored by user
+        Bitmap generatedProfilePic = GenerateProfilePic.generateProfilePicture(getInitials(name));
 
         // Name condition check.
         if (TextUtils.isEmpty(name)) {
@@ -144,7 +226,7 @@ public class AccountProfileScreenFragment extends Fragment {
             Toast.makeText(getActivity(), "Invalid email address", Toast.LENGTH_SHORT).show();
 
         } else {
-            updateUserInfoToFirestore(name, phone, email, homepage, status);
+            updateUserInfoToFirestore(name, phone, email, homepage, status, generatedProfilePic);
         }
 
     }
@@ -165,10 +247,13 @@ public class AccountProfileScreenFragment extends Fragment {
 
 
     // Sends updated user info to firebase
-    private void updateUserInfoToFirestore(String name, String phone, String email, String homepage, boolean status) {
+    private void updateUserInfoToFirestore(String name, String phone, String email, String homepage, boolean status, Bitmap generatedProfilePicBitmap) {
 
         String device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //encode the profile pic and send to firebase
+        String encodedProfilePic = encodeBitmap(generatedProfilePicBitmap);
 
         db.collection("Users")
                 .whereEqualTo("device_id", device_id)
@@ -194,6 +279,7 @@ public class AccountProfileScreenFragment extends Fragment {
                                 docRef.update("email", email);
                                 docRef.update("homepage", homepage);
                                 docRef.update("allow_coordinates", status);
+                                docRef.update("generated_pic", encodedProfilePic);
 
                             } else {
                                 Log.d("Firestore", "No such document");
@@ -255,12 +341,6 @@ public class AccountProfileScreenFragment extends Fragment {
                     }
                 });
     }
-
-
-
-
-
-
 
 
     public void onDestroyView() {

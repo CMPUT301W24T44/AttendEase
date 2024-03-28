@@ -30,8 +30,7 @@
             android:fontFamily="@font/poppins_bold"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
-            android:paddingTop="35dp"
-            android:text="Profile Name" />
+            android:paddingTop="35dp" />
         
         <TextView
             android:id="@+id/profile_details_phone_num"
@@ -42,8 +41,7 @@
             android:paddingTop="25dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="#D9D9D9"
-            android:textSize="18sp"
-            android:text="Mobile Number:" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/profile_details_email"
@@ -54,8 +52,7 @@
             android:paddingTop="10dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="#D9D9D9"
-            android:textSize="18sp"
-            android:text="Email:" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/profile_details_homepage"
@@ -66,8 +63,7 @@
             android:paddingTop="10dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="#D9D9D9"
-            android:textSize="18sp"
-            android:text="Homepage:" />
+            android:textSize="18sp" />
 
 
     </LinearLayout>

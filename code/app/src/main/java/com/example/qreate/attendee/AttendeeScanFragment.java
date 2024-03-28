@@ -92,6 +92,11 @@ public class AttendeeScanFragment extends Fragment implements View.OnClickListen
         return view;
     }
 
+    /**
+     * For displaying pop-up dialog after scanning of qr code
+     * for the user to know the outcome
+     * @param resultMessage from scan
+     */
     private void popUpResultDialog(String resultMessage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Result from Scan");
@@ -105,6 +110,10 @@ public class AttendeeScanFragment extends Fragment implements View.OnClickListen
         builder.show();
     }
 
+    /**
+     * For scans that are not need warnings
+     * @param scanAborted message
+     */
     private void popUpAlert(String scanAborted) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(scanAborted);
@@ -113,6 +122,10 @@ public class AttendeeScanFragment extends Fragment implements View.OnClickListen
         builder.show();
     }
 
+    /**
+     * For when user clicks on the scan qr code button, the scan process starts.
+     * @param v The view that was clicked.
+     */
     @Override
     public void onClick(View v){
         if (v.getId() == R.id.tap_to_scan_qr_button){
@@ -120,7 +133,9 @@ public class AttendeeScanFragment extends Fragment implements View.OnClickListen
         }
     }
 
-
+    /**
+     * For starting scanner using IntentIntegrator library
+     */
     private void startQRScan(){
         IntentIntegrator intentIntegrator = IntentIntegrator.forSupportFragment(this);
         intentIntegrator.setPrompt("SCAN A QR CODE");

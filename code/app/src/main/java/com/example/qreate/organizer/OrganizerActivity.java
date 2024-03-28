@@ -44,6 +44,8 @@ public class OrganizerActivity extends AppCompatActivity implements EditProfileS
     private BottomNavigationView bottomNavigationView;
     private String retrievedDocumentId;
 
+    private String device_id;
+
     /**
      * Creates the view and sets activity to the organizer_handler layout
      * Authenticates user
@@ -58,6 +60,8 @@ public class OrganizerActivity extends AppCompatActivity implements EditProfileS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizer_handler);
+
+        device_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         bottomNavigationView = findViewById(R.id.organizer_handler_navigation_bar);
         bottomNavigationView.setSelectedItemId(R.id.defaultNavPlaceholder); //This line is here so that there is no default item selected, it selects a menu item that is invisible
@@ -222,7 +226,9 @@ public class OrganizerActivity extends AppCompatActivity implements EditProfileS
                 // Add all necessary document fields here
                 Map<String, Object> device = new HashMap<>();
                 device.put("user_document_id", docRef);
-                device.put("created_event_list", eventList);
+                device.put("event_list", eventList);
+                device.put("device_id", device_id);
+
                 db.collection("Organizers").add(device);
                 // Now safely inside the callback, knowing documentId is retrieved
             }
@@ -303,8 +309,6 @@ public class OrganizerActivity extends AppCompatActivity implements EditProfileS
 
 
     public void retrieveUserDocument(DocumentIdCallback callback) {
-
-        String device_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         db.collection("Users")
                 .whereEqualTo("device_id", device_id)
