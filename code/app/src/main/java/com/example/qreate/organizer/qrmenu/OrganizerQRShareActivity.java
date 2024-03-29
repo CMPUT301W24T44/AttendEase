@@ -22,6 +22,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 import androidx.annotation.NonNull;
@@ -35,14 +37,20 @@ import java.util.List;
 public class OrganizerQRShareActivity extends AppCompatActivity {
     ArrayList<OrganizerEvent> events;
     private FirebaseFirestore db;
+    Uri firebaseUri;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     Spinner eventsSpinner;
     OrganizerEventSpinnerArrayAdapter eventSpinnerArrayAdapter;
+    //temporary fake id
+    String documentId = "LrXKKSgx3TmrSWiWZnQc";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.organizer_share_qr_code_screen);
+
         db = FirebaseFirestore.getInstance();
 
 
@@ -63,6 +71,7 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
+                //getPromoQR();
             }
 
 
@@ -72,6 +81,8 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
 
             }
         });
+        //TODO get promo qr grabs the qr for the selected event so call it everytime a new event is selected
+        getPromoQR();
 
 
         eventSpinnerArrayAdapter.setDropDownViewResource(R.layout.organizer_event_list_recycler_row_layout);
@@ -89,8 +100,9 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("image/jpeg");
                 //GOTTA PUT THE IMAGE LOCATION HERE
-                Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/qricon.png");
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                //Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/qricon.png");
+
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, firebaseUri);
                 startActivity(Intent.createChooser(sharingIntent, "Share Image"));
             }
         }));
@@ -104,6 +116,27 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void getPromoQR(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Events").document(documentId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            storageRef.child(document.getString("promo_qr_code")).getDownloadUrl().addOnSuccessListener(uri -> {
+                                firebaseUri = uri;
+                            }).addOnFailureListener(exception -> {
+                                // Handle any errors (e.g., image not found, network issues)
+                            });
+                        } else {
+                            // Task failed with an exception
+                            Log.d("Firestore", "get failed with ", task.getException());
+                        }
+                    }
+                });
     }
 
 
