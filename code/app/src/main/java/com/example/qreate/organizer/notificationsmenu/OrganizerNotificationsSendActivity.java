@@ -117,7 +117,7 @@ public class OrganizerNotificationsSendActivity extends AppCompatActivity {
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i], "date", "idk why getting the device id doesnt work here")));
+            events.add((new OrganizerEvent(cities[i], provinces[i], "date", "idk why getting the device id doesnt work here","uhh")));
         }
     }
 }

@@ -28,10 +28,20 @@ public class OrganizerEvent {
     private String detail;
     private String organizer;
     private String date;
+    private String documentID;
     private String posterUrl;
     private String signInQrCodeUrl;
     private String promotionalQrCodeUrl;
     private List<String> usersSignedUp;
+    public String getDocumentID() {
+        return documentID;
+    }
+
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
+    }
+
 
     public String getEvent() {
         return event;
@@ -73,12 +83,13 @@ public class OrganizerEvent {
      *
      */
 
-    public OrganizerEvent(String event, String detail, String date, String organizer){
+    public OrganizerEvent(String event, String detail, String date, String organizer, String documentID){
         this.event = event;
         this.detail = detail;
         //TODO ORGANIZER POSTER AND QR URLS
         this.date = date;
         this.organizer = organizer;
+        this.documentID = documentID;
     }
 
     /**

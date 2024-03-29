@@ -200,7 +200,7 @@ public class OrganizerAttendeeListMenuFragment extends Fragment {
         String []cities ={"Edmonton", "Vancouver", "Toronto", "Hamilton", "Denver", "Los Angeles"};
         String []provinces = {"AB", "BC", "ON", "ON", "CO", "CA"};
         for(int i=0;i<cities.length;i++){
-            events.add((new OrganizerEvent(cities[i], provinces[i], "date", Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID))));
+            events.add((new OrganizerEvent(cities[i], provinces[i], "date", Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID), "uhh")));
         }
     }
 }
