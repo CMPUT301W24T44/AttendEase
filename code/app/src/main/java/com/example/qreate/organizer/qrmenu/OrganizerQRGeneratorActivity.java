@@ -160,7 +160,7 @@ public class OrganizerQRGeneratorActivity extends AppCompatActivity {
                                 List<DocumentReference> referenceArray = (List<DocumentReference>) document.get("events_list");
 
 
-                                //assert createdEvents != null;
+                                assert referenceArray != null;
                                 for (DocumentReference reference : referenceArray) {
                                     reference.get().addOnCompleteListener(referencedTask -> {
                                         if (referencedTask.isSuccessful()) {
