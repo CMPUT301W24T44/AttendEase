@@ -30,12 +30,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+<<<<<<< Updated upstream
+=======
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+>>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class OrganizerQRShareActivity extends AppCompatActivity {
     ArrayList<OrganizerEvent> events;
+<<<<<<< Updated upstream
+=======
+    private Button testButton;
+    Bitmap idk;
+    private OrganizerEvent selectedEvent;
+    //File cacheDir = getCacheDir();
+>>>>>>> Stashed changes
     private FirebaseFirestore db;
     Uri firebaseUri;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -93,6 +112,31 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
 
         Button shareButton = findViewById(R.id.share_qr_code_sharebutton);
 
+        //this way just crashes it too
+        /*try {
+            URL url = new URL("https://firebasestorage.googleapis.com/v0/b/qreate-bb8b8.appspot.com/o/qr_codes%2F537b55b1-7ed9-4202-9a82-815cca1715a5.png?alt=media&token=77d6e246-c9de-47ad-8a90-838889935feb");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Now you have the image bitmap
+            // Set it to your ImageView or use it as needed
+            String path = MediaStore.Images.Media.insertImage(
+                    this.getContentResolver(),
+                    bitmap,
+                    "Title", // Provide a title for the image
+                    null
+            );
+            firebaseUri = Uri.parse(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        Uri uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/qreate-bb8b8.appspot.com/o/qr_codes%2F537b55b1-7ed9-4202-9a82-815cca1715a5.png?alt=media&token=77d6e246-c9de-47ad-8a90-838889935feb");
+
 
         shareButton.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -103,7 +147,18 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
                 //Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/qricon.png");
 
                 sharingIntent.putExtra(Intent.EXTRA_STREAM, firebaseUri);
+<<<<<<< Updated upstream
                 startActivity(Intent.createChooser(sharingIntent, "Share Image"));
+=======
+                startActivity(Intent.createChooser(sharingIntent, "Share Image"));*/
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/png"); // Set the appropriate image type
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(downloadUrl));
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("https://firebasestorage.googleapis.com/v0/b/qreate-bb8b8.appspot.com/o/qr_codes%2F537b55b1-7ed9-4202-9a82-815cca1715a5.png?alt=media&token=77d6e246-c9de-47ad-8a90-838889935feb"));
+                shareIntent.putExtra(Intent.EXTRA_STREAM, idk);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "Share Image"));
+>>>>>>> Stashed changes
             }
         }));
 
@@ -127,10 +182,47 @@ public class OrganizerQRShareActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             storageRef.child(document.getString("promo_qr_code")).getDownloadUrl().addOnSuccessListener(uri -> {
+<<<<<<< Updated upstream
+=======
+                            /*promoRef.child("537b55b1-7ed9-4202-9a82-815cca1715a5.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                            {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    firebaseUri = uri;
+                                }*/
+                                //Content uri code this fix didn't work
+                                //firebaseUri = FileProvider.getUriForFile(context, "com.example.qreate.organizer.qrmenu", new File(uri.getPath()));
+                                //String imageUrl = String.valueOf(uri);
+>>>>>>> Stashed changes
                                 firebaseUri = uri;
                             }).addOnFailureListener(exception -> {
+<<<<<<< Updated upstream
                                 // Handle any errors (e.g., image not found, network issues)
                             });
+=======
+                                // this error doesn't pop up
+                                Log.e("ImageError", "Error downloading image: " + exception.getMessage());
+                            });
+                            //different content uri fix this didn't work either
+                            StorageReference imageRef = storageRef.child(document.getString("promo_qr_code"));
+                            imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    // Convert byte array to Bitmap
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArray);
+                                    //String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Promo", null);
+                                    //firebaseUri = Uri.parse(path);
+                                    idk = bitmap;
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                }
+                            });
+>>>>>>> Stashed changes
                         } else {
                             // Task failed with an exception
                             Log.d("Firestore", "get failed with ", task.getException());
