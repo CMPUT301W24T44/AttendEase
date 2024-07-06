@@ -1,9 +1,16 @@
-We have implemented the administrator security feature under the impression that whoever is hired to be an 
-administrator will be the only one given a special password to access the administrator functionality. 
+# QReate
+An Event management system where:  
+- Attendees check in using QR codes on their mobile devices.  
+- Organizers can track attendance, manage event details and send notifications
 
-The Administrator Password: uFHa2gkj
+Please refer to the [Wiki](https://github.com/CMPUT301W24T44/QReate/wiki) for more info
 
-An overall reference used to fix certain bugs was:
-// OpenAI, 2024, ChatGPT, debugging
+## Admininstrator Password
+In order to access the admin menu a password is required.  
+Administrator Password: uFHa2gkj
 
-We did not implement the reference in our code because we used it to debug multiple things and the reference would have been redundant. 
+## Screenshots
+Some screenshots of the app:  
+![image](https://github.com/CMPUT301W24T44/QReate/assets/145165683/34869d6a-692b-4b18-b459-bc1017145b29)
+
+
